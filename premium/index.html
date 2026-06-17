@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday ❤️</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet" />
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Lenis smooth scroll -->
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Grain overlay -->
+  <div class="grain"></div>
+
+  <!-- Audio toggle -->
+  <button id="audio-btn" aria-label="Toggle music">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path id="audio-icon-path" d="M9 18V5l12-2v13M9 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12 0c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/>
+    </svg>
+  </button>
+  <audio id="bg-music" loop>
+    <!-- Add your song: <source src="music/song.mp3" type="audio/mpeg" /> -->
+  </audio>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <canvas id="star-canvas"></canvas>
+    <div class="hero-inner">
+      <p class="pre-title" data-split>for the one who means everything</p>
+      <h1 class="hero-title" data-split>Happy Birthday</h1>
+      <h2 class="hero-name" data-split>Her Name</h2>
+      <p class="hero-date">June 17, 2025</p>
+      <div class="scroll-cue">
+        <span>scroll to relive our story</span>
+        <div class="arrow-wrap"><div class="arrow"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CHAPTERS ── -->
+  <section id="story">
+
+    <article class="chapter" data-dir="left">
+      <div class="chapter-media">
+        <div class="media-frame">
+          <div class="media-placeholder">✦</div>
+          <!-- <img src="photos/photo1.jpg" alt="How we met" /> -->
+        </div>
+      </div>
+      <div class="chapter-copy">
+        <span class="chapter-num">01</span>
+        <h3 class="chapter-title" data-split>How We Met</h3>
+        <p class="chapter-date">Month, Year</p>
+        <p class="chapter-body">Your story of how you met goes here. Write it with every feeling you remember.</p>
+      </div>
+    </article>
+
+    <article class="chapter" data-dir="right">
+      <div class="chapter-media">
+        <div class="media-frame">
+          <div class="media-placeholder">✦</div>
+        </div>
+      </div>
+      <div class="chapter-copy">
+        <span class="chapter-num">02</span>
+        <h3 class="chapter-title" data-split>Our First Date</h3>
+        <p class="chapter-date">Month, Year</p>
+        <p class="chapter-body">Describe your first date — the place, the nervousness, the smiles, the moment you knew.</p>
+      </div>
+    </article>
+
+    <article class="chapter" data-dir="left">
+      <div class="chapter-media">
+        <div class="media-frame">
+          <div class="media-placeholder">✦</div>
+        </div>
+      </div>
+      <div class="chapter-copy">
+        <span class="chapter-num">03</span>
+        <h3 class="chapter-title" data-split>Milestone Title</h3>
+        <p class="chapter-date">Month, Year</p>
+        <p class="chapter-body">Describe this special moment in your journey together.</p>
+      </div>
+    </article>
+
+    <article class="chapter" data-dir="right">
+      <div class="chapter-media">
+        <div class="media-frame">
+          <div class="media-placeholder">✦</div>
+        </div>
+      </div>
+      <div class="chapter-copy">
+        <span class="chapter-num">04</span>
+        <h3 class="chapter-title" data-split>Milestone Title</h3>
+        <p class="chapter-date">Month, Year</p>
+        <p class="chapter-body">Describe this special moment in your journey together.</p>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- ── FINAL MESSAGE ── -->
+  <section id="message">
+    <canvas id="particle-canvas"></canvas>
+    <div class="message-inner">
+      <div class="heart">♥</div>
+      <h2 class="message-title" data-split>To you, my love</h2>
+      <p class="message-body">
+        Your birthday message goes here. Write from the heart — every word, every feeling, every reason she means the world to you.
+      </p>
+      <p class="message-sign">— Your Name</p>
+    </div>
+  </section>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
