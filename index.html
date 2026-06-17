@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday ❤️</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ── AUDIO PLAYER ── -->
+  <div id="audio-control" class="audio-btn" title="Toggle music">
+    <span id="audio-icon">♪</span>
+  </div>
+  <audio id="bg-music" loop>
+    <!-- src will be added once song is provided -->
+  </audio>
+
+  <!-- ── INTRO / HERO SECTION ── -->
+  <section id="hero" class="section hero">
+    <div class="stars" id="stars"></div>
+    <div class="hero-content">
+      <p class="subtitle fade-in">for the one who means everything</p>
+      <h1 class="hero-title fade-in delay-1">Happy Birthday</h1>
+      <h2 class="hero-name fade-in delay-2">[ Her Name ]</h2>
+      <p class="hero-date fade-in delay-3">[ Date ]</p>
+      <div class="scroll-hint fade-in delay-4">
+        <span>scroll to relive our story</span>
+        <div class="scroll-arrow">↓</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STORY CHAPTERS ── -->
+  <section id="story" class="section story">
+
+    <div class="chapter" data-chapter="1">
+      <div class="chapter-illustration">
+        <div class="illus-placeholder" id="illus-1">✦</div>
+      </div>
+      <div class="chapter-text">
+        <span class="chapter-label">Chapter One</span>
+        <h3 class="chapter-title">How We Met</h3>
+        <p class="chapter-date">[ Month, Year ]</p>
+        <p class="chapter-body">[ Your story of how you met goes here. ]</p>
+      </div>
+    </div>
+
+    <div class="chapter chapter-reverse" data-chapter="2">
+      <div class="chapter-illustration">
+        <div class="illus-placeholder" id="illus-2">✦</div>
+      </div>
+      <div class="chapter-text">
+        <span class="chapter-label">Chapter Two</span>
+        <h3 class="chapter-title">Our First Date</h3>
+        <p class="chapter-date">[ Month, Year ]</p>
+        <p class="chapter-body">[ Describe your first date. ]</p>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="3">
+      <div class="chapter-illustration">
+        <div class="illus-placeholder" id="illus-3">✦</div>
+      </div>
+      <div class="chapter-text">
+        <span class="chapter-label">Chapter Three</span>
+        <h3 class="chapter-title">[ Milestone Title ]</h3>
+        <p class="chapter-date">[ Month, Year ]</p>
+        <p class="chapter-body">[ Describe the moment. ]</p>
+      </div>
+    </div>
+
+    <div class="chapter chapter-reverse" data-chapter="4">
+      <div class="chapter-illustration">
+        <div class="illus-placeholder" id="illus-4">✦</div>
+      </div>
+      <div class="chapter-text">
+        <span class="chapter-label">Chapter Four</span>
+        <h3 class="chapter-title">[ Milestone Title ]</h3>
+        <p class="chapter-date">[ Month, Year ]</p>
+        <p class="chapter-body">[ Describe the moment. ]</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── FINAL MESSAGE ── -->
+  <section id="message" class="section message">
+    <div class="message-content">
+      <div class="heart-anim">♥</div>
+      <h2 class="message-title">To you, my love</h2>
+      <p class="message-body">
+        [ Your birthday message goes here. Write from the heart. ]
+      </p>
+      <p class="message-sign">— [ Your Name ]</p>
+    </div>
+    <div class="particles" id="particles"></div>
+  </section>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
