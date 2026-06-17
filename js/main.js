@@ -50,7 +50,7 @@ const audioIcon = document.getElementById('audio-icon');
 let playing = false;
 
 audioBtn.addEventListener('click', () => {
-  if (!audio.src) return; // no song added yet
+  if (!audio.src) return;
   if (playing) {
     audio.pause();
     audioIcon.textContent = '♪';
@@ -61,7 +61,6 @@ audioBtn.addEventListener('click', () => {
   playing = !playing;
 });
 
-// Auto-play on first user interaction with the page
 document.addEventListener('click', function tryAutoplay() {
   if (!playing && audio.src) {
     audio.play().catch(() => {});
