@@ -250,6 +250,219 @@ body {
   line-height: 1.8;
 }
 
+/* ── CINEMATIC CHAPTERS ── */
+.story {
+  flex-direction: column;
+  padding: 0;
+  gap: 0;
+  background: var(--black);
+  align-items: stretch;
+  min-height: unset;
+}
+
+.chapter-full {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+.chapter-full.cf-flip { direction: rtl; }
+.chapter-full.cf-flip > * { direction: ltr; }
+
+/* ── Photo side ── */
+.cf-media {
+  position: relative;
+  overflow: hidden;
+}
+
+.cf-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.07);
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+              transform 7s ease;
+}
+.chapter-full.visible .cf-img {
+  clip-path: inset(0 0 0% 0);
+  transform: scale(1);
+}
+
+/* Unique gradient for each chapter (replace with background-image when photos ready) */
+.cf-img-1 { background: radial-gradient(ellipse at 40% 55%, #3d1a2e 0%, #0a0a0f 80%); }
+.cf-img-2 { background: radial-gradient(ellipse at 60% 40%, #0f1a3d 0%, #0a0a0f 80%); }
+.cf-img-3 { background: radial-gradient(ellipse at 35% 60%, #2d1a08 0%, #0a0a0f 80%); }
+.cf-img-4 { background: radial-gradient(ellipse at 55% 45%, #0a1f1a 0%, #0a0a0f 80%); }
+.cf-img-5 { background: radial-gradient(ellipse at 45% 55%, #2d0a20 0%, #0a0a0f 80%); }
+.cf-img-6 { background: radial-gradient(ellipse at 50% 50%, #2d1f05 0%, #0a0a0f 80%); }
+
+/* Subtle inner glow accent per chapter */
+.cf-img-1::after { content:''; position:absolute; inset:0; background: radial-gradient(circle at 45% 55%, rgba(212,99,122,0.18) 0%, transparent 65%); }
+.cf-img-2::after { content:''; position:absolute; inset:0; background: radial-gradient(circle at 55% 42%, rgba(100,140,212,0.18) 0%, transparent 65%); }
+.cf-img-3::after { content:''; position:absolute; inset:0; background: radial-gradient(circle at 40% 58%, rgba(201,169,110,0.2) 0%, transparent 65%); }
+.cf-img-4::after { content:''; position:absolute; inset:0; background: radial-gradient(circle at 52% 48%, rgba(80,180,140,0.16) 0%, transparent 65%); }
+.cf-img-5::after { content:''; position:absolute; inset:0; background: radial-gradient(circle at 46% 54%, rgba(180,80,130,0.18) 0%, transparent 65%); }
+.cf-img-6::after { content:''; position:absolute; inset:0; background: radial-gradient(circle at 50% 50%, rgba(201,169,110,0.22) 0%, transparent 65%); }
+
+.cf-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 50%, var(--black) 100%);
+  pointer-events: none;
+}
+.cf-flip .cf-veil {
+  background: linear-gradient(to left, transparent 50%, var(--black) 100%);
+}
+
+/* ── Text side ── */
+.cf-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 4.5rem 5rem 4rem;
+  position: relative;
+}
+.cf-flip .cf-text {
+  padding: 5rem 4rem 5rem 4.5rem;
+}
+
+.cf-num {
+  font-family: var(--font-serif);
+  font-size: clamp(6rem, 13vw, 11rem);
+  font-weight: 300;
+  color: rgba(201, 169, 110, 0.05);
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  line-height: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease 0.2s;
+}
+.cf-flip .cf-num { right: auto; left: 2rem; }
+.chapter-full.visible .cf-num { opacity: 1; }
+
+.cf-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.55em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s;
+}
+.chapter-full.visible .cf-label { opacity: 1; transform: translateY(0); }
+
+.cf-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 3.5vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.2;
+  margin-top: 0.8rem;
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 1s ease 0.55s, transform 1s ease 0.55s;
+}
+.chapter-full.visible .cf-title { opacity: 1; transform: translateY(0); }
+
+.cf-rule {
+  width: 36px;
+  height: 1px;
+  background: var(--gold);
+  margin: 1.6rem 0;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: opacity 0.5s ease 0.75s, transform 0.6s ease 0.75s;
+}
+.chapter-full.visible .cf-rule { opacity: 0.55; transform: scaleX(1); }
+
+.cf-body {
+  font-size: 0.92rem;
+  line-height: 2;
+  color: rgba(240, 232, 220, 0.65);
+  font-style: italic;
+  max-width: 380px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 1s ease 0.9s, transform 1s ease 0.9s;
+}
+.chapter-full.visible .cf-body { opacity: 1; transform: translateY(0); }
+
+.cf-date {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(201, 169, 110, 0.4);
+  margin-top: 1.8rem;
+  opacity: 0;
+  transition: opacity 0.8s ease 1.1s;
+}
+.chapter-full.visible .cf-date { opacity: 1; }
+
+/* ── Interlude quote cards ── */
+.story-interlude {
+  min-height: 55vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+  background: linear-gradient(to bottom, var(--black) 0%, #0d0718 50%, var(--black) 100%);
+  position: relative;
+}
+.story-interlude::before {
+  content: '✦';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18rem;
+  color: rgba(201, 169, 110, 0.025);
+  pointer-events: none;
+  line-height: 1;
+}
+
+.si-quote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2.8vw, 1.9rem);
+  font-weight: 300;
+  font-style: italic;
+  text-align: center;
+  color: rgba(240, 232, 220, 0.38);
+  max-width: 580px;
+  line-height: 1.8;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+  position: relative;
+  z-index: 1;
+}
+.story-interlude.visible .si-quote { opacity: 1; transform: translateY(0); }
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .chapter-full {
+    grid-template-columns: 1fr;
+    grid-template-rows: 42vh auto;
+    min-height: unset;
+  }
+  .chapter-full.cf-flip { direction: ltr; }
+  .cf-media { grid-row: 1; }
+  .cf-text {
+    grid-row: 2;
+    padding: 3rem 1.8rem;
+  }
+  .cf-veil, .cf-flip .cf-veil {
+    background: linear-gradient(to bottom, transparent 40%, var(--black) 100%);
+  }
+  .cf-num { font-size: 5rem; top: 1rem; right: 1rem; }
+  .cf-flip .cf-num { left: 1rem; right: auto; }
+  .cf-body { max-width: 100%; }
+}
+
 /* ── FINAL MESSAGE ── */
 .message {
   background: radial-gradient(ellipse at center, #1a0820 0%, var(--black) 70%);

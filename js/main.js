@@ -866,7 +866,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.2 });
 
-document.querySelectorAll('.chapter, .message-content')
+document.querySelectorAll('.chapter-full, .story-interlude, .message-content')
   .forEach(el => observer.observe(el));
 
 // ── PARTICLES ──
