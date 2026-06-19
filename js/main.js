@@ -869,53 +869,190 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.message-content')
   .forEach(el => observer.observe(el));
 
-// ── PHOTO SLIDESHOW ──
+// ── CINEMATIC SLIDESHOW ──
 (function initGallery() {
-  const slides  = Array.from(document.querySelectorAll('.gs-slide'));
-  const dotsEl  = document.getElementById('gs-dots');
-  const counter = document.getElementById('gs-counter');
-  const total   = slides.length;
-  let current   = 0;
-  let busy      = false;
+  const slides   = Array.from(document.querySelectorAll('.gs-slide'));
+  const flash    = document.getElementById('gs-flash');
+  const leak     = document.getElementById('gs-light-leak');
+  const curtain  = document.getElementById('gs-curtain');
+  const lbT      = document.getElementById('gs-lb-t');
+  const lbB      = document.getElementById('gs-lb-b');
+  const pfill    = document.getElementById('gs-pfill');
+  const currEl   = document.getElementById('gs-curr');
+  const grainEl  = document.getElementById('gs-grain');
+  const total    = slides.length;
+  let current    = 0;
+  let busy       = false;
+  let tIdx       = 0;
+  const TYPES    = ['blast', 'curtain', 'flash', 'leak'];
 
-  // Build dots
-  slides.forEach((_, i) => {
-    const d = document.createElement('div');
-    d.className = 'gs-dot' + (i === 0 ? ' active' : '');
-    d.addEventListener('click', () => goTo(i));
-    dotsEl.appendChild(d);
-  });
+  // Bake film grain texture once into a canvas data URL
+  (function bakeGrain() {
+    const c = document.createElement('canvas');
+    c.width = c.height = 256;
+    const ctx = c.getContext('2d');
+    const id  = ctx.createImageData(256, 256);
+    for (let i = 0; i < id.data.length; i += 4) {
+      const v = Math.random() * 255 | 0;
+      id.data[i] = id.data[i+1] = id.data[i+2] = v;
+      id.data[i+3] = 255;
+    }
+    ctx.putImageData(id, 0, 0);
+    grainEl.style.backgroundImage = 'url(' + c.toDataURL() + ')';
+  })();
 
-  function restartKB(slide) {
+  // Ken Burns direction per slide
+  const KB = [
+    { x: '-2%', y: '-1%' }, { x:  '2%', y: '-1%' },
+    { x: '-1%', y:  '2%' }, { x:  '1%', y:  '1%' },
+    { x: '-2%', y:  '1%' }, { x:  '2%', y:  '1%' },
+    { x:  '0%', y: '-2%' }, { x:  '0%', y:  '2%' },
+  ];
+
+  function startKB(slide) {
     const photo = slide.querySelector('.gs-photo');
-    photo.style.animation = 'none';
-    void photo.offsetWidth;
-    photo.style.animation = '';
+    const k = KB[parseInt(slide.dataset.idx) % KB.length];
+    gsap.killTweensOf(photo);
+    gsap.fromTo(photo,
+      { scale: 1.04, x: '0%', y: '0%' },
+      { scale: 1.18, x: k.x,  y: k.y,  duration: 13, ease: 'none' }
+    );
+  }
+
+  function showCaption(slide) {
+    const label = slide.querySelector('.gs-label');
+    const lines = slide.querySelectorAll('.gs-line');
+    const sub   = slide.querySelector('.gs-sub');
+    gsap.timeline()
+      .fromTo(label, { opacity:0, y:8 },      { opacity:1, y:0,     duration:0.7,  ease:'power3.out' }, 0.25)
+      .fromTo(lines, { y:'105%', opacity:0 }, { y:'0%', opacity:1,  duration:1.05, stagger:0.18, ease:'power4.out' }, 0.4)
+      .fromTo(sub,   { opacity:0 },           { opacity:1,           duration:0.8 }, 0.95);
+  }
+
+  function hideCaption(slide) {
+    gsap.to(slide.querySelectorAll('.gs-label, .gs-line, .gs-sub'),
+      { opacity:0, y:'-12px', duration:0.28, stagger:0.04, ease:'power2.in' });
+  }
+
+  function playWhoosh() {
+    try {
+      const ctx2 = new (window.AudioContext || window.webkitAudioContext)();
+      const len  = Math.floor(ctx2.sampleRate * 0.45);
+      const buf  = ctx2.createBuffer(1, len, ctx2.sampleRate);
+      const d    = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) d[i] = (Math.random()*2-1) * Math.pow(1-i/len, 2.5) * 0.55;
+      const src = ctx2.createBufferSource(); src.buffer = buf;
+      const bp  = ctx2.createBiquadFilter(); bp.type = 'bandpass';
+      bp.frequency.setValueAtTime(380, ctx2.currentTime);
+      bp.frequency.exponentialRampToValueAtTime(75, ctx2.currentTime + 0.45);
+      bp.Q.value = 0.6;
+      const g = ctx2.createGain();
+      g.gain.setValueAtTime(0.35, ctx2.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx2.currentTime + 0.45);
+      src.connect(bp); bp.connect(g); g.connect(ctx2.destination);
+      src.start(); src.stop(ctx2.currentTime + 0.5);
+    } catch(e) {}
   }
 
   function updateUI(idx) {
-    document.querySelectorAll('.gs-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
-    counter.textContent = `${idx + 1} / ${total}`;
+    currEl.textContent = String(idx + 1).padStart(2, '0');
+    gsap.to(pfill, { width: ((idx + 1) / total * 100) + '%', duration:0.9, ease:'power2.out' });
+  }
+
+  function resetSlide(slide) {
+    gsap.set(slide, { opacity:0, scale:1, zIndex:1 });
+    gsap.set(slide.querySelector('.gs-photo'), { scale:1.04, x:'0%', y:'0%', opacity:1, clearProps:'clipPath' });
+    gsap.set(slide.querySelectorAll('.gs-label, .gs-line, .gs-sub'), { opacity:0, y:0 });
+    slide.classList.remove('gs-active');
+  }
+
+  // TRANSITION 1: BLAST — photo explodes out, new one slams in
+  function doBlast(from, to, done) {
+    hideCaption(from);
+    gsap.set([lbT, lbB], { height: 0 });
+    const tl = gsap.timeline({ onComplete: done });
+    tl.to([lbT, lbB], { height:'9vh', duration:0.22, ease:'power2.in' })
+      .to(from.querySelector('.gs-photo'), { scale:1.45, opacity:0, duration:0.5, ease:'power3.in' }, '<')
+      .to(from, { opacity:0, duration:0.35 }, '-=0.2')
+      .call(function() {
+        gsap.set(from, { zIndex:1, opacity:0 });
+        gsap.set(to,   { zIndex:2, opacity:1 });
+        to.classList.add('gs-active');
+        gsap.set(to.querySelector('.gs-photo'), { scale:0.86, opacity:0 });
+        startKB(to);
+      })
+      .to(to.querySelector('.gs-photo'), { scale:1.04, opacity:1, duration:0.75, ease:'power2.out' })
+      .to([lbT, lbB], { height:0, duration:0.35, ease:'power2.out' }, '-=0.5')
+      .call(function() { showCaption(to); });
+  }
+
+  // TRANSITION 2: CURTAIN — diagonal wipe sweeps across
+  function doCurtain(from, to, done) {
+    hideCaption(from);
+    gsap.set(curtain, { clipPath:'polygon(0 0, 0 0, 0 100%, 0 100%)' });
+    const tl = gsap.timeline({ onComplete: done });
+    tl.to(curtain, { clipPath:'polygon(0 0, 105% 0, 115% 100%, 0 100%)', duration:0.65, ease:'power3.inOut' })
+      .call(function() {
+        gsap.set(from, { zIndex:1, opacity:0 });
+        gsap.set(to,   { zIndex:2, opacity:1 });
+        to.classList.add('gs-active');
+        startKB(to);
+      })
+      .to(curtain, { clipPath:'polygon(105% 0, 105% 0, 115% 100%, 115% 100%)', duration:0.6, ease:'power3.inOut' })
+      .call(function() {
+        gsap.set(curtain, { clipPath:'polygon(0 0, 0 0, 0 100%, 0 100%)' });
+        showCaption(to);
+      });
+  }
+
+  // TRANSITION 3: FLASH — blinding white cut
+  function doFlash(from, to, done) {
+    hideCaption(from);
+    const tl = gsap.timeline({ onComplete: done });
+    tl.to(flash, { opacity:0.97, duration:0.07, ease:'none' })
+      .call(function() {
+        gsap.set(from, { zIndex:1, opacity:0 });
+        gsap.set(to,   { zIndex:2, opacity:1 });
+        to.classList.add('gs-active');
+        startKB(to);
+      })
+      .to(flash, { opacity:0, duration:0.6, ease:'power2.out' })
+      .call(function() { showCaption(to); }, null, '-=0.2');
+  }
+
+  // TRANSITION 4: LIGHT LEAK — warm orange sweep
+  function doLeak(from, to, done) {
+    hideCaption(from);
+    gsap.set(leak, { x:'-110%', opacity:1 });
+    const tl = gsap.timeline({ onComplete: done });
+    tl.to(leak, { x:'110%', duration:0.8, ease:'power2.inOut' })
+      .to(from, { opacity:0, duration:0.4 }, '-=0.55')
+      .call(function() {
+        gsap.set(from, { zIndex:1, opacity:0 });
+        gsap.set(to,   { zIndex:2, opacity:1 });
+        gsap.set(leak, { opacity:0 });
+        to.classList.add('gs-active');
+        startKB(to);
+      })
+      .call(function() { showCaption(to); }, null, '+=0.05');
   }
 
   function goTo(idx) {
     if (busy || idx === current) return;
     busy = true;
-
+    playWhoosh();
     const from = slides[current];
     const to   = slides[idx];
-
-    from.classList.add('leaving');
-    from.classList.remove('active');
-    to.classList.add('active');
-    restartKB(to);
+    const type = TYPES[tIdx++ % TYPES.length];
+    from.classList.remove('gs-active');
+    gsap.set(to, { opacity:0, scale:1, zIndex:3 });
     updateUI(idx);
     current = idx;
-
-    setTimeout(() => {
-      from.classList.remove('leaving');
-      busy = false;
-    }, 1600);
+    function onDone() { resetSlide(from); busy = false; }
+    if      (type === 'blast')   doBlast(from, to, onDone);
+    else if (type === 'curtain') doCurtain(from, to, onDone);
+    else if (type === 'flash')   doFlash(from, to, onDone);
+    else                         doLeak(from, to, onDone);
   }
 
   function next() { goTo((current + 1) % total); }
@@ -923,26 +1060,27 @@ document.querySelectorAll('.message-content')
 
   document.getElementById('gs-next').addEventListener('click', next);
   document.getElementById('gs-prev').addEventListener('click', prev);
-
-  // Keyboard
-  document.addEventListener('keydown', e => {
-    if (!document.getElementById('gallery')) return;
+  document.addEventListener('keydown', function(e) {
     if (e.key === 'ArrowRight') next();
     if (e.key === 'ArrowLeft')  prev();
   });
 
-  // Touch swipe
-  let tx = 0;
-  const gal = document.getElementById('gallery');
-  gal.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
-  gal.addEventListener('touchend',   e => {
-    const dx = tx - e.changedTouches[0].clientX;
-    if (Math.abs(dx) > 48) dx > 0 ? next() : prev();
-  }, { passive: true });
+  var touchX = 0;
+  document.getElementById('gallery').addEventListener('touchstart', function(e) {
+    touchX = e.touches[0].clientX;
+  }, { passive:true });
+  document.getElementById('gallery').addEventListener('touchend', function(e) {
+    var dx = touchX - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 44) dx > 0 ? next() : prev();
+  }, { passive:true });
 
-  // Initialise first slide KB
-  restartKB(slides[0]);
+  // Init
+  gsap.set(slides[0], { opacity:1, zIndex:2 });
+  slides[0].classList.add('gs-active');
+  slides.slice(1).forEach(function(s) { gsap.set(s, { opacity:0 }); });
   updateUI(0);
+  startKB(slides[0]);
+  setTimeout(function() { showCaption(slides[0]); }, 600);
 })();
 
 // ── PARTICLES ──
