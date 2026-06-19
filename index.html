@@ -10,13 +10,101 @@
 </head>
 <body>
 
+  <!-- ── INTRO OVERLAY ── -->
+  <div id="intro-overlay">
+
+    <!-- PHASE 1: CAKE + CANDLES -->
+    <div id="candle-phase">
+      <p class="intro-hint">click to blow out each candle</p>
+      <div class="cake-scene">
+        <div class="cake-wrapper">
+          <div class="candles-row">
+            <div class="candle" id="c0">
+              <div class="flame-wrap"><div class="flame"></div></div>
+              <div class="candle-body cb-rose"></div>
+            </div>
+            <div class="candle" id="c1">
+              <div class="flame-wrap"><div class="flame"></div></div>
+              <div class="candle-body cb-gold"></div>
+            </div>
+            <div class="candle" id="c2">
+              <div class="flame-wrap"><div class="flame"></div></div>
+              <div class="candle-body cb-cream"></div>
+            </div>
+          </div>
+          <div class="cake-tier cake-tier-top"></div>
+          <div class="cake-tier cake-tier-bot"></div>
+        </div>
+      </div>
+      <p class="candle-counter"><span id="flames-left">3</span> flames remaining</p>
+      <button id="dev-skip" class="dev-skip">skip →</button>
+    </div>
+
+    <!-- PHASE 2: SHOOTING STAR -->
+    <div id="star-phase">
+      <div class="phase-stars" id="sp-stars"></div>
+      <div class="sp-content">
+        <p class="sp-text" id="sp-text"></p>
+        <p class="sp-sub"  id="sp-sub"></p>
+        <p class="sp-caught" id="sp-caught">✦ wish granted ✦</p>
+      </div>
+      <div class="sp-screen" id="sp-screen">
+        <div class="shooting-star-el" id="shooting-star-el"></div>
+      </div>
+    </div>
+
+    <!-- PHASE 3: CONSTELLATION HEART -->
+    <div id="heart-phase">
+      <div class="phase-stars" id="hp-stars"></div>
+      <p class="hp-hint" id="hp-hint">connect the stars in order</p>
+      <div class="heart-stage">
+        <svg class="heart-svg" id="heart-svg" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="heart-dots" id="heart-dots"></div>
+      </div>
+      <p class="hp-counter" id="hp-counter">tap star <span id="next-star">1</span></p>
+      <div class="heart-msg" id="heart-msg">
+        <p class="hm-line1">our connection will never end</p>
+        <p class="hm-line2">always connecting the dots,<br>no matter what</p>
+      </div>
+    </div>
+
+    <!-- PHASE 4: PIANO -->
+    <div id="piano-phase">
+      <div class="phase-stars" id="pp2-stars"></div>
+      <p class="piano-intro" id="piano-intro"></p>
+      <p class="piano-sub">follow the glow &nbsp;♪</p>
+      <div class="piano-wrap">
+        <div class="piano-keys" id="piano-keys"></div>
+      </div>
+      <p class="piano-lyric" id="piano-lyric">&nbsp;</p>
+      <p class="piano-progress" id="piano-progress">&nbsp;</p>
+      <div class="piano-actions" id="piano-actions">
+        <button class="piano-btn" id="piano-replay">↺ &nbsp;play again</button>
+        <button class="piano-btn piano-btn-fwd" id="piano-forward">move on &nbsp;→</button>
+      </div>
+    </div>
+
+    <!-- PHASE 5: NAME REVEAL -->
+    <div id="name-phase">
+      <div class="phase-stars" id="np-stars"></div>
+      <div class="np-content">
+        <div class="name-row">
+          <span class="nl">S</span><span class="nl">u</span><span class="nl">r</span><span class="nl">e</span><span class="nl">k</span><span class="nl">a</span><span class="nl">a</span>
+        </div>
+        <p class="np-tagline" id="np-tagline">Happy Birthday ♥</p>
+        <button class="np-enter" id="np-enter">open your gift &rarr;</button>
+      </div>
+    </div>
+
+  </div>
+
   <!-- ── AUDIO PLAYER ── -->
   <div id="audio-control" class="audio-btn" title="Toggle music">
     <span id="audio-icon">♪</span>
   </div>
-  <audio id="bg-music" loop>
-    <!-- src will be added once song is provided -->
-  </audio>
+  <!-- YouTube hidden player -->
+  <div id="yt-player" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;"></div>
+  <script src="https://www.youtube.com/iframe_api"></script>
 
   <!-- ── INTRO / HERO SECTION ── -->
   <section id="hero" class="section hero">
@@ -24,8 +112,8 @@
     <div class="hero-content">
       <p class="subtitle fade-in">for the one who means everything</p>
       <h1 class="hero-title fade-in delay-1">Happy Birthday</h1>
-      <h2 class="hero-name fade-in delay-2">[ Her Name ]</h2>
-      <p class="hero-date fade-in delay-3">[ Date ]</p>
+      <h2 class="hero-name fade-in delay-2">Surekaa</h2>
+      <p class="hero-date fade-in delay-3">July 14</p>
       <div class="scroll-hint fade-in delay-4">
         <span>scroll to relive our story</span>
         <div class="scroll-arrow">↓</div>
@@ -43,8 +131,8 @@
       <div class="chapter-text">
         <span class="chapter-label">Chapter One</span>
         <h3 class="chapter-title">How We Met</h3>
-        <p class="chapter-date">[ Month, Year ]</p>
-        <p class="chapter-body">[ Your story of how you met goes here. ]</p>
+        <p class="chapter-date">coming soon ·</p>
+        <p class="chapter-body chapter-placeholder">this page is still being written&nbsp;—<br>some stories take time to put into words.</p>
       </div>
     </div>
 
@@ -54,9 +142,9 @@
       </div>
       <div class="chapter-text">
         <span class="chapter-label">Chapter Two</span>
-        <h3 class="chapter-title">Our First Date</h3>
-        <p class="chapter-date">[ Month, Year ]</p>
-        <p class="chapter-body">[ Describe your first date. ]</p>
+        <h3 class="chapter-title">Our First Day</h3>
+        <p class="chapter-date">coming soon ·</p>
+        <p class="chapter-body chapter-placeholder">this page is still being written&nbsp;—<br>some stories take time to put into words.</p>
       </div>
     </div>
 
@@ -66,9 +154,9 @@
       </div>
       <div class="chapter-text">
         <span class="chapter-label">Chapter Three</span>
-        <h3 class="chapter-title">[ Milestone Title ]</h3>
-        <p class="chapter-date">[ Month, Year ]</p>
-        <p class="chapter-body">[ Describe the moment. ]</p>
+        <h3 class="chapter-title">A Moment I'll Never Forget</h3>
+        <p class="chapter-date">coming soon ·</p>
+        <p class="chapter-body chapter-placeholder">this page is still being written&nbsp;—<br>some stories take time to put into words.</p>
       </div>
     </div>
 
@@ -78,9 +166,9 @@
       </div>
       <div class="chapter-text">
         <span class="chapter-label">Chapter Four</span>
-        <h3 class="chapter-title">[ Milestone Title ]</h3>
-        <p class="chapter-date">[ Month, Year ]</p>
-        <p class="chapter-body">[ Describe the moment. ]</p>
+        <h3 class="chapter-title">Us, Today</h3>
+        <p class="chapter-date">coming soon ·</p>
+        <p class="chapter-body chapter-placeholder">this page is still being written&nbsp;—<br>some stories take time to put into words.</p>
       </div>
     </div>
 
@@ -90,11 +178,14 @@
   <section id="message" class="section message">
     <div class="message-content">
       <div class="heart-anim">♥</div>
-      <h2 class="message-title">To you, my love</h2>
+      <h2 class="message-title">To you, Surekaa</h2>
       <p class="message-body">
-        [ Your birthday message goes here. Write from the heart. ]
+        Every single day with you is something I'm grateful for.<br>
+        You make ordinary moments feel like the ones worth remembering.<br><br>
+        On your birthday, I just want you to know —<br>
+        you are loved more than words can ever hold.
       </p>
-      <p class="message-sign">— [ Your Name ]</p>
+      <p class="message-sign">— always yours</p>
     </div>
     <div class="particles" id="particles"></div>
   </section>
