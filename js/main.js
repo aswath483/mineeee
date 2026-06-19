@@ -889,7 +889,7 @@ let ytPending = false; // play requested before API loaded
 window.onYouTubeIframeAPIReady = function () {
   ytPlayer = new YT.Player('yt-player', {
     videoId: 'NRiF7j6BcnA',
-    playerVars: { autoplay: 0, loop: 1, playlist: 'NRiF7j6BcnA', controls: 0, rel: 0 },
+    playerVars: { autoplay: 0, loop: 1, playlist: 'NRiF7j6BcnA', controls: 0, rel: 0, start: 28 },
     events: {
       onReady() {
         ytReady = true;
