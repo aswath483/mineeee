@@ -599,7 +599,11 @@
   document.getElementById('np-enter').addEventListener('click', () => {
     overlay.classList.add('hide');
     setTimeout(() => overlay.remove(), 1100);
-    startYT();
+    // Start music on first scroll, not on click — feels natural as she scrolls in
+    window.addEventListener('scroll', function onFirstScroll() {
+      window.removeEventListener('scroll', onFirstScroll);
+      startYT();
+    }, { once: true });
   });
 
   document.getElementById('dev-skip').addEventListener('click', () => {
@@ -884,24 +888,37 @@ document.querySelectorAll('.chapter, .message-content')
 // ── YOUTUBE MUSIC ──
 let ytPlayer = null;
 let ytReady  = false;
-let ytPending = false; // play requested before API loaded
+let ytPending = false;
 
 window.onYouTubeIframeAPIReady = function () {
   ytPlayer = new YT.Player('yt-player', {
     videoId: 'NRiF7j6BcnA',
-    playerVars: { autoplay: 0, loop: 1, playlist: 'NRiF7j6BcnA', controls: 0, rel: 0, start: 28 },
+    playerVars: { autoplay: 0, loop: 1, playlist: 'NRiF7j6BcnA', controls: 0, rel: 0, start: 27 },
     events: {
       onReady() {
         ytReady = true;
-        ytPlayer.setVolume(70);
-        if (ytPending) { ytPlayer.playVideo(); ytPending = false; }
+        ytPlayer.setVolume(0);
+        if (ytPending) { fadeInYT(); ytPending = false; }
       },
     },
   });
 };
 
+function fadeInYT() {
+  ytPlayer.seekTo(27, true);
+  ytPlayer.setVolume(0);
+  ytPlayer.playVideo();
+  updateMusicIcon(true);
+  let vol = 0;
+  const fade = setInterval(() => {
+    vol = Math.min(vol + 3, 70);
+    ytPlayer.setVolume(vol);
+    if (vol >= 70) clearInterval(fade);
+  }, 80); // ~1.9 s fade-in
+}
+
 function startYT() {
-  if (ytReady) { ytPlayer.playVideo(); updateMusicIcon(true); }
+  if (ytReady) fadeInYT();
   else ytPending = true;
 }
 
