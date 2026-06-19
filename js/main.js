@@ -866,8 +866,84 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.2 });
 
-document.querySelectorAll('.chapter-full, .story-interlude, .message-content')
+document.querySelectorAll('.message-content')
   .forEach(el => observer.observe(el));
+
+// ── PHOTO SLIDESHOW ──
+(function initGallery() {
+  const slides  = Array.from(document.querySelectorAll('.gs-slide'));
+  const dotsEl  = document.getElementById('gs-dots');
+  const counter = document.getElementById('gs-counter');
+  const total   = slides.length;
+  let current   = 0;
+  let busy      = false;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'gs-dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  });
+
+  function restartKB(slide) {
+    const photo = slide.querySelector('.gs-photo');
+    photo.style.animation = 'none';
+    void photo.offsetWidth;
+    photo.style.animation = '';
+  }
+
+  function updateUI(idx) {
+    document.querySelectorAll('.gs-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+    counter.textContent = `${idx + 1} / ${total}`;
+  }
+
+  function goTo(idx) {
+    if (busy || idx === current) return;
+    busy = true;
+
+    const from = slides[current];
+    const to   = slides[idx];
+
+    from.classList.add('leaving');
+    from.classList.remove('active');
+    to.classList.add('active');
+    restartKB(to);
+    updateUI(idx);
+    current = idx;
+
+    setTimeout(() => {
+      from.classList.remove('leaving');
+      busy = false;
+    }, 1600);
+  }
+
+  function next() { goTo((current + 1) % total); }
+  function prev() { goTo((current - 1 + total) % total); }
+
+  document.getElementById('gs-next').addEventListener('click', next);
+  document.getElementById('gs-prev').addEventListener('click', prev);
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('gallery')) return;
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft')  prev();
+  });
+
+  // Touch swipe
+  let tx = 0;
+  const gal = document.getElementById('gallery');
+  gal.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  gal.addEventListener('touchend',   e => {
+    const dx = tx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 48) dx > 0 ? next() : prev();
+  }, { passive: true });
+
+  // Initialise first slide KB
+  restartKB(slides[0]);
+  updateUI(0);
+})();
 
 // ── PARTICLES ──
 (function createParticles() {

@@ -121,114 +121,98 @@
     </div>
   </section>
 
-  <!-- ── STORY CHAPTERS ── -->
-  <section id="story" class="section story">
+  <!-- ── PHOTO SLIDESHOW ── -->
+  <section id="gallery">
 
-    <!-- Chapter 1 -->
-    <div class="chapter-full" data-n="1">
-      <div class="cf-media">
-        <div class="cf-img cf-img-1"></div>
-        <div class="cf-veil"></div>
+    <div class="gs-track" id="gs-track">
+
+      <div class="gs-slide active" data-idx="0">
+        <div class="gs-photo gs-p0"></div>
+        <div class="gs-overlay"></div>
+        <div class="gs-caption">
+          <p class="gs-date">[ add date ]</p>
+          <p class="gs-text">the day it all began</p>
+        </div>
       </div>
-      <div class="cf-text">
-        <span class="cf-num">01</span>
-        <span class="cf-label">Chapter One</span>
-        <h3 class="cf-title">The Beginning</h3>
-        <div class="cf-rule"></div>
-        <p class="cf-body">When it started, neither of us had a plan.<br>Some of the best things never do.</p>
-        <p class="cf-date">[ add your date ]</p>
+
+      <div class="gs-slide" data-idx="1">
+        <div class="gs-photo gs-p1"></div>
+        <div class="gs-overlay"></div>
+        <div class="gs-caption">
+          <p class="gs-date">[ add date ]</p>
+          <p class="gs-text">our favourite kind of afternoon</p>
+        </div>
       </div>
+
+      <div class="gs-slide" data-idx="2">
+        <div class="gs-photo gs-p2"></div>
+        <div class="gs-overlay"></div>
+        <div class="gs-caption">
+          <p class="gs-date">[ add date ]</p>
+          <p class="gs-text">a moment worth a thousand words</p>
+        </div>
+      </div>
+
+      <div class="gs-slide" data-idx="3">
+        <div class="gs-photo gs-p3"></div>
+        <div class="gs-overlay"></div>
+        <div class="gs-caption">
+          <p class="gs-date">[ add date ]</p>
+          <p class="gs-text">when everything felt exactly right</p>
+        </div>
+      </div>
+
+      <div class="gs-slide" data-idx="4">
+        <div class="gs-photo gs-p4"></div>
+        <div class="gs-overlay"></div>
+        <div class="gs-caption">
+          <p class="gs-date">[ add date ]</p>
+          <p class="gs-text">just the two of us</p>
+        </div>
+      </div>
+
+      <div class="gs-slide" data-idx="5">
+        <div class="gs-photo gs-p5"></div>
+        <div class="gs-overlay"></div>
+        <div class="gs-caption">
+          <p class="gs-date">[ add date ]</p>
+          <p class="gs-text">a memory I'll carry forever</p>
+        </div>
+      </div>
+
+      <div class="gs-slide" data-idx="6">
+        <div class="gs-photo gs-p6"></div>
+        <div class="gs-overlay"></div>
+        <div class="gs-caption">
+          <p class="gs-date">[ add date ]</p>
+          <p class="gs-text">you, being perfectly you</p>
+        </div>
+      </div>
+
+      <div class="gs-slide" data-idx="7">
+        <div class="gs-photo gs-p7"></div>
+        <div class="gs-overlay"></div>
+        <div class="gs-caption">
+          <p class="gs-date">[ add date ]</p>
+          <p class="gs-text">every day better than the last</p>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Interlude 1 -->
-    <div class="story-interlude">
-      <p class="si-quote">"You don't find love — it finds you.<br>In the most ordinary moments, in the most unexpected places."</p>
-    </div>
+    <!-- Navigation -->
+    <button class="gs-nav gs-prev" id="gs-prev" aria-label="Previous">&#8592;</button>
+    <button class="gs-nav gs-next" id="gs-next" aria-label="Next">&#8594;</button>
 
-    <!-- Chapter 2 (flipped) -->
-    <div class="chapter-full cf-flip" data-n="2">
-      <div class="cf-media">
-        <div class="cf-img cf-img-2"></div>
-        <div class="cf-veil"></div>
-      </div>
-      <div class="cf-text">
-        <span class="cf-num">02</span>
-        <span class="cf-label">Chapter Two</span>
-        <h3 class="cf-title">Our First Real Day</h3>
-        <div class="cf-rule"></div>
-        <p class="cf-body">Everything felt different and somehow exactly right.<br>The kind of day I'll always want to go back to.</p>
-        <p class="cf-date">[ add your date ]</p>
-      </div>
-    </div>
+    <!-- Progress dots -->
+    <div class="gs-dots" id="gs-dots"></div>
 
-    <!-- Chapter 3 -->
-    <div class="chapter-full" data-n="3">
-      <div class="cf-media">
-        <div class="cf-img cf-img-3"></div>
-        <div class="cf-veil"></div>
-      </div>
-      <div class="cf-text">
-        <span class="cf-num">03</span>
-        <span class="cf-label">Chapter Three</span>
-        <h3 class="cf-title">The Moment I Knew</h3>
-        <div class="cf-rule"></div>
-        <p class="cf-body">There was one small moment — quiet, unremarkable to everyone else —<br>when I just knew. And I've known ever since.</p>
-        <p class="cf-date">[ add your date ]</p>
-      </div>
-    </div>
+    <!-- Slide counter -->
+    <p class="gs-counter" id="gs-counter">1 &thinsp;/&thinsp; 8</p>
 
-    <!-- Interlude 2 -->
-    <div class="story-interlude">
-      <p class="si-quote">"Some people make the world feel bigger.<br>You make it feel like home."</p>
-    </div>
-
-    <!-- Chapter 4 (flipped) -->
-    <div class="chapter-full cf-flip" data-n="4">
-      <div class="cf-media">
-        <div class="cf-img cf-img-4"></div>
-        <div class="cf-veil"></div>
-      </div>
-      <div class="cf-text">
-        <span class="cf-num">04</span>
-        <span class="cf-label">Chapter Four</span>
-        <h3 class="cf-title">Every Little Thing</h3>
-        <div class="cf-rule"></div>
-        <p class="cf-body">It's the small things I think about most.<br>The way you make ordinary feel like something worth remembering.</p>
-        <p class="cf-date">[ add your date ]</p>
-      </div>
-    </div>
-
-    <!-- Chapter 5 -->
-    <div class="chapter-full" data-n="5">
-      <div class="cf-media">
-        <div class="cf-img cf-img-5"></div>
-        <div class="cf-veil"></div>
-      </div>
-      <div class="cf-text">
-        <span class="cf-num">05</span>
-        <span class="cf-label">Chapter Five</span>
-        <h3 class="cf-title">What You Probably Don't Know</h3>
-        <div class="cf-rule"></div>
-        <p class="cf-body">You don't know how often something reminds me of you.<br>Or how much it means — just having you.</p>
-        <p class="cf-date">[ add your date ]</p>
-      </div>
-    </div>
-
-    <!-- Chapter 6 (flipped) -->
-    <div class="chapter-full cf-flip" data-n="6">
-      <div class="cf-media">
-        <div class="cf-img cf-img-6"></div>
-        <div class="cf-veil"></div>
-      </div>
-      <div class="cf-text">
-        <span class="cf-num">06</span>
-        <span class="cf-label">Chapter Six</span>
-        <h3 class="cf-title">Today and Always</h3>
-        <div class="cf-rule"></div>
-        <p class="cf-body">On this birthday, I want you to know everything.<br>You are deeply, completely, endlessly loved.</p>
-        <p class="cf-date">July 14</p>
-      </div>
-    </div>
+    <!-- Section fades -->
+    <div class="gs-fade-top"></div>
+    <div class="gs-fade-bot"></div>
 
   </section>
 
