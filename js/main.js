@@ -603,7 +603,9 @@
   });
 
   document.getElementById('dev-skip').addEventListener('click', () => {
+    seedStars('np-stars');
     goTo('name-phase', 0);
+    setTimeout(initNameReveal, 720);
   });
 })();
 
