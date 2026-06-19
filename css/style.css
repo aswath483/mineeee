@@ -59,6 +59,15 @@ body {
   text-align: center;
   overflow: hidden;
 }
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 22%;
+  background: linear-gradient(to top, var(--black), transparent);
+  pointer-events: none;
+  z-index: 3;
+}
 
 .stars {
   position: absolute;
@@ -275,6 +284,26 @@ body {
   position: relative;
   overflow: hidden;
 }
+/* Top & bottom black fade — dissolves chapter edges into the page */
+.cf-media::before,
+.cf-media::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.cf-media::before {
+  top: 0;
+  height: 28%;
+  background: linear-gradient(to bottom, var(--black) 0%, transparent 100%);
+}
+.cf-media::after {
+  bottom: 0;
+  height: 28%;
+  background: linear-gradient(to top, var(--black) 0%, transparent 100%);
+}
 
 .cf-img {
   position: absolute;
@@ -470,6 +499,15 @@ body {
   text-align: center;
   padding: 4rem 2rem;
   overflow: hidden;
+}
+.message::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 22%;
+  background: linear-gradient(to bottom, var(--black), transparent);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .message-content {
