@@ -33,6 +33,7 @@
 
   <script>
   (function () {
+    var ALWAYS_VISIBLE = true; // set to false to re-enable the July 14 countdown lock
     var UNLOCK = new Date(2026, 6, 14, 0, 0, 0); // July 14 2026 midnight, local time
     var screen = document.getElementById('cdscreen');
 
@@ -56,8 +57,7 @@
       document.getElementById('cds-s').textContent = pad(s);
     }
 
-    if (Date.now() >= UNLOCK || location.search.includes('preview')) {
-      // Already past, or dev preview mode — remove immediately, no flash
+    if (ALWAYS_VISIBLE || Date.now() >= UNLOCK || location.search.includes('preview')) {
       if (screen.parentNode) screen.parentNode.removeChild(screen);
       return;
     }
