@@ -10,6 +10,77 @@
 </head>
 <body>
 
+  <!-- ── COUNTDOWN LOCK SCREEN ── -->
+  <div id="cdscreen">
+    <div class="cds-stars" id="cds-stars"></div>
+    <div class="cds-inner">
+      <p class="cds-pre">something special awaits</p>
+      <p class="cds-who">— a letter from someone who loves you —</p>
+      <div class="cds-divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+      <p class="cds-date">July 14, 2026</p>
+      <div class="cds-timer">
+        <div class="cds-unit"><span class="cds-n" id="cds-d">00</span><span class="cds-l">days</span></div>
+        <div class="cds-colon">:</div>
+        <div class="cds-unit"><span class="cds-n" id="cds-h">00</span><span class="cds-l">hours</span></div>
+        <div class="cds-colon">:</div>
+        <div class="cds-unit"><span class="cds-n" id="cds-m">00</span><span class="cds-l">min</span></div>
+        <div class="cds-colon">:</div>
+        <div class="cds-unit"><span class="cds-n" id="cds-s">00</span><span class="cds-l">sec</span></div>
+      </div>
+      <p class="cds-sub">your gift is almost ready...</p>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    var UNLOCK = new Date(2026, 6, 14, 0, 0, 0); // July 14 2026 midnight, local time
+    var screen = document.getElementById('cdscreen');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function tick() {
+      var diff = UNLOCK - Date.now();
+      if (diff <= 0) {
+        clearInterval(timer);
+        screen.classList.add('unlock');
+        setTimeout(function () { if (screen.parentNode) screen.parentNode.removeChild(screen); }, 1700);
+        return;
+      }
+      var d = Math.floor(diff / 86400000);
+      var h = Math.floor((diff % 86400000) / 3600000);
+      var m = Math.floor((diff % 3600000) / 60000);
+      var s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cds-d').textContent = pad(d);
+      document.getElementById('cds-h').textContent = pad(h);
+      document.getElementById('cds-m').textContent = pad(m);
+      document.getElementById('cds-s').textContent = pad(s);
+    }
+
+    if (Date.now() >= UNLOCK) {
+      // Already past — remove immediately, no flash
+      if (screen.parentNode) screen.parentNode.removeChild(screen);
+      return;
+    }
+
+    // Seed starfield
+    var starsEl = document.getElementById('cds-stars');
+    for (var i = 0; i < 140; i++) {
+      var st = document.createElement('div');
+      st.className = 'cds-star';
+      var sz = Math.random() < 0.8 ? 1 : 2;
+      st.style.cssText = 'left:' + (Math.random() * 100) + '%;top:' + (Math.random() * 100) + '%;'
+        + 'width:' + sz + 'px;height:' + sz + 'px;'
+        + '--dur:' + (2 + Math.random() * 4) + 's;'
+        + '--op:' + (0.1 + Math.random() * 0.55) + ';'
+        + 'animation-delay:' + (Math.random() * 5) + 's;';
+      starsEl.appendChild(st);
+    }
+
+    tick();
+    var timer = setInterval(tick, 1000);
+  })();
+  </script>
+
   <!-- ── INTRO OVERLAY ── -->
   <div id="intro-overlay">
 
