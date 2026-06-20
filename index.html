@@ -56,8 +56,8 @@
       document.getElementById('cds-s').textContent = pad(s);
     }
 
-    if (Date.now() >= UNLOCK) {
-      // Already past — remove immediately, no flash
+    if (Date.now() >= UNLOCK || location.search.includes('preview')) {
+      // Already past, or dev preview mode — remove immediately, no flash
       if (screen.parentNode) screen.parentNode.removeChild(screen);
       return;
     }
