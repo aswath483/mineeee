@@ -952,6 +952,7 @@ document.querySelectorAll('.message-content')
     gsap.to(photo, {
       scale: 1.022, duration: 0.72, ease: 'sine.inOut',
       delay: 1.0, yoyo: true, repeat: 1,
+      onStart:    function() { playPianoNote(current); },
       onComplete: function() { gsap.set(photo, { scale: 1 }); }
     });
   }
@@ -1099,9 +1100,28 @@ document.querySelectorAll('.message-content')
     }, null, '+=0.05');
   }
 
+  function playPianoNote(idx) {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const FREQS = [261.63, 329.63, 392.00, 440.00, 493.88, 329.63, 392.00, 261.63, 440.00, 329.63];
+      const base  = FREQS[idx % FREQS.length];
+      [[1, 0.15], [2, 0.08], [3, 0.04], [4, 0.014]].forEach(([h, v]) => {
+        const osc = ctx.createOscillator(), g = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = base * h;
+        g.gain.setValueAtTime(0, ctx.currentTime);
+        g.gain.linearRampToValueAtTime(v, ctx.currentTime + 0.07);
+        g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 2.2);
+        osc.connect(g); g.connect(ctx.destination);
+        osc.start(); osc.stop(ctx.currentTime + 2.5);
+      });
+    } catch(e) {}
+  }
+
   function goTo(idx) {
     if (busy || idx === current) return;
     busy = true;
+    if (navigator.vibrate) navigator.vibrate(12);
     playWhoosh();
     const from = slides[current];
     const to   = slides[idx];
@@ -1120,6 +1140,52 @@ document.querySelectorAll('.message-content')
   function revealMessage() {
     var msg = document.getElementById('message');
     msg.classList.add('revealed');
+
+    // haptic flourish on end screen
+    if (navigator.vibrate) navigator.vibrate([25, 60, 25, 60, 40]);
+
+    // music swell — double volume for the emotional peak
+    if (typeof ytPlayer !== 'undefined' && ytReady) {
+      var sv = 35;
+      var st = setInterval(function() {
+        sv = Math.min(sv + 1, 70);
+        ytPlayer.setVolume(sv);
+        if (sv >= 70) clearInterval(st);
+      }, 90);
+    }
+
+    // let the fade-in settle, then typewrite body + launch petals
+    setTimeout(typewriterReveal, 2600);
+    setTimeout(launchPetals,     2000);
+  }
+
+  function typewriterReveal() {
+    var bodyEl = document.querySelector('.message-body');
+    var signEl = document.querySelector('.message-sign');
+    if (!bodyEl || !signEl) return;
+    if (!bodyEl.dataset.orig) bodyEl.dataset.orig = bodyEl.innerHTML;
+    var raw = bodyEl.dataset.orig
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<[^>]+>/g, '');
+    var typed = '', i = 0;
+    bodyEl.innerHTML = '';
+    bodyEl.style.opacity = '1';
+    signEl.style.opacity  = '0';
+    function tick() {
+      if (i >= raw.length) {
+        setTimeout(function() {
+          signEl.style.transition  = 'opacity 1.3s ease, transform 1.3s ease';
+          signEl.style.opacity     = '1';
+          signEl.style.transform   = 'translateY(0)';
+        }, 550);
+        return;
+      }
+      var ch = raw[i++];
+      typed += ch;
+      bodyEl.innerHTML = typed.replace(/\n/g, '<br>');
+      setTimeout(tick, ch === '.' || ch === ',' || ch === '—' ? 85 : 22);
+    }
+    tick();
   }
 
   function next() {
@@ -1169,21 +1235,30 @@ document.querySelectorAll('.message-content')
   setTimeout(function() { showCaption(slides[0]); }, 600);
 })();
 
-// ── PARTICLES ──
-(function createParticles() {
-  const container = document.getElementById('particles');
-  for (let i = 0; i < 30; i++) {
-    const p = document.createElement('div');
+// ── ROSE PETAL PARTICLES — launched when end screen reveals ──
+function launchPetals() {
+  var container = document.getElementById('particles');
+  if (!container) return;
+  container.innerHTML = '';
+  var colors = ['#d4637a','#e8a0b0','#c9a96e','#ffb3c6','#f08090','#e8c4a0'];
+  for (var i = 0; i < 58; i++) {
+    var p  = document.createElement('div');
     p.className = 'particle';
-    p.style.cssText = `
-      left: ${Math.random() * 100}%;
-      --dur: ${5 + Math.random() * 8}s;
-      animation-delay: ${Math.random() * 10}s;
-      background: ${Math.random() > 0.5 ? '#d4637a' : '#c9a96e'};
-    `;
+    var sz = 6 + Math.random() * 9;
+    p.style.cssText = [
+      'left:'              + (Math.random() * 108 - 4) + '%',
+      'width:'             + sz + 'px',
+      'height:'            + (sz * 1.5) + 'px',
+      '--dur:'             + (7 + Math.random() * 9)   + 's',
+      '--drift:'           + ((Math.random() - 0.5) * 88) + 'px',
+      'animation-delay:'   + (Math.random() * 10)      + 's',
+      'background:'        + colors[Math.floor(Math.random() * colors.length)],
+      'border-radius:'     + (Math.random() > 0.5 ? '50% 0 50% 0' : '0 50% 0 50%'),
+      'transform:rotate('  + (Math.random() * 360)     + 'deg)',
+    ].join(';');
     container.appendChild(p);
   }
-})();
+}
 
 // ── YOUTUBE MUSIC ──
 let ytPlayer = null;

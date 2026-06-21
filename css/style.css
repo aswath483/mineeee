@@ -997,6 +997,7 @@ body {
   line-height: 2;
   color: rgba(240, 232, 220, 0.8);
   font-style: italic;
+  opacity: 0; /* revealed by typewriter JS */
 }
 
 .message-sign {
@@ -1004,6 +1005,8 @@ body {
   letter-spacing: 0.2em;
   color: var(--gold);
   margin-top: 1rem;
+  opacity: 0;           /* revealed after typewriter finishes */
+  transform: translateY(14px);
 }
 
 /* ── PARTICLES ── */
@@ -1015,19 +1018,19 @@ body {
 
 .particle {
   position: absolute;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
+  top: -15px;
   background: var(--rose);
-  animation: float var(--dur, 6s) ease-in-out infinite;
+  animation: petalFall var(--dur, 8s) ease-in infinite;
   opacity: 0;
+  will-change: transform, opacity;
 }
 
-@keyframes float {
-  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
-  20%  { opacity: 0.6; }
-  80%  { opacity: 0.3; }
-  100% { transform: translateY(-20vh) scale(1.5); opacity: 0; }
+@keyframes petalFall {
+  0%   { opacity: 0;    transform: translateY(-5vh)   translateX(0)                           rotate(0deg)   scale(0.8); }
+  8%   { opacity: 0.88; }
+  50%  {                transform: translateY(52vh)   translateX(calc(var(--drift,0px) * .6)) rotate(220deg) scale(1.05); }
+  88%  { opacity: 0.45; }
+  100% { opacity: 0;    transform: translateY(110vh)  translateX(var(--drift,0px))            rotate(480deg) scale(1.1); }
 }
 
 /* ── RESPONSIVE ── */
