@@ -997,7 +997,7 @@ document.querySelectorAll('.message-content')
         gsap.set(from, { zIndex:1, opacity:0 });
         gsap.set(to,   { zIndex:2, opacity:1 });
         to.classList.add('gs-active');
-        gsap.set(to.querySelector('.gs-photo'), { scale:0.86, opacity:0 });
+        gsap.set(to.querySelector('.gs-photo'), { scale:0.93, opacity:0 });
       })
       .to(to.querySelector('.gs-photo'), { scale:1, opacity:1, duration:0.75, ease:'power2.out' })
       .to([lbT, lbB], { height:0, duration:0.35, ease:'power2.out' }, '-=0.5')
