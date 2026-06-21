@@ -613,7 +613,15 @@ body {
 }
 .gs-light-leak {
   position: absolute; inset: 0;
-  background: linear-gradient(110deg, transparent 15%, rgba(255,155,50,0.88) 50%, transparent 85%);
+  background: linear-gradient(
+    108deg,
+    transparent 4%,
+    rgba(255,210,100,0.06) 22%,
+    rgba(255,150,60,0.78)  45%,
+    rgba(255,80,100,0.52)  54%,
+    rgba(255,170,90,0.22)  70%,
+    transparent 90%
+  );
   opacity: 0; pointer-events: none; z-index: 28;
   transform: translateX(-110%);
 }

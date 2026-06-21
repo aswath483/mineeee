@@ -938,6 +938,32 @@ document.querySelectorAll('.message-content')
     }
   }
 
+  // ── Cinematic entry effects ──────────────────────────────────────────────
+  function focusPull(photo) {
+    gsap.fromTo(photo,
+      { filter: 'blur(9px)' },
+      { filter: 'blur(0px)', duration: 1.15, ease: 'power2.out',
+        onComplete: function() { gsap.set(photo, { clearProps: 'filter' }); }
+      }
+    );
+  }
+
+  function heartbeat(photo) {
+    gsap.to(photo, {
+      scale: 1.022, duration: 0.72, ease: 'sine.inOut',
+      delay: 1.0, yoyo: true, repeat: 1,
+      onComplete: function() { gsap.set(photo, { scale: 1 }); }
+    });
+  }
+
+  function miniLeak() {
+    gsap.fromTo(leak,
+      { x: '-110%', opacity: 0.78 },
+      { x: '110%',  opacity: 0,    duration: 0.9, ease: 'power1.inOut' }
+    );
+  }
+  // ─────────────────────────────────────────────────────────────────────────
+
   function showCaption(slide) {
     const label = slide.querySelector('.gs-label');
     const lines = slide.querySelectorAll('.gs-line');
@@ -1001,7 +1027,12 @@ document.querySelectorAll('.message-content')
       })
       .to(to.querySelector('.gs-photo'), { scale:1, opacity:1, duration:0.75, ease:'power2.out' })
       .to([lbT, lbB], { height:0, duration:0.35, ease:'power2.out' }, '-=0.5')
-      .call(function() { showCaption(to); startKB(to); });
+      .call(function() {
+        showCaption(to); startKB(to);
+        focusPull(to.querySelector('.gs-photo'));
+        heartbeat(to.querySelector('.gs-photo'));
+        miniLeak();
+      });
   }
 
   // TRANSITION 2: CURTAIN — diagonal wipe sweeps across
@@ -1020,6 +1051,9 @@ document.querySelectorAll('.message-content')
       .call(function() {
         gsap.set(curtain, { clipPath:'polygon(0 0, 0 0, 0 100%, 0 100%)' });
         showCaption(to);
+        focusPull(to.querySelector('.gs-photo'));
+        heartbeat(to.querySelector('.gs-photo'));
+        miniLeak();
       });
   }
 
@@ -1035,7 +1069,12 @@ document.querySelectorAll('.message-content')
         startKB(to);
       })
       .to(flash, { opacity:0, duration:0.6, ease:'power2.out' })
-      .call(function() { showCaption(to); }, null, '-=0.2');
+      .call(function() {
+      showCaption(to);
+      focusPull(to.querySelector('.gs-photo'));
+      heartbeat(to.querySelector('.gs-photo'));
+      miniLeak();
+    }, null, '-=0.2');
   }
 
   // TRANSITION 4: LIGHT LEAK — warm orange sweep
@@ -1052,7 +1091,12 @@ document.querySelectorAll('.message-content')
         to.classList.add('gs-active');
         startKB(to);
       })
-      .call(function() { showCaption(to); }, null, '+=0.05');
+      .call(function() {
+      showCaption(to);
+      focusPull(to.querySelector('.gs-photo'));
+      heartbeat(to.querySelector('.gs-photo'));
+      // no miniLeak — the transition itself is the light leak
+    }, null, '+=0.05');
   }
 
   function goTo(idx) {
