@@ -636,6 +636,7 @@ body {
   color: var(--gold);
   opacity: 0;
   margin-bottom: 0.9rem;
+  text-shadow: 0 1px 12px rgba(0,0,0,0.9);
 }
 .gs-label em { font-style: normal; opacity: 0.5; }
 .gs-title {
@@ -646,6 +647,7 @@ body {
   line-height: 1.1;
   color: var(--light);
   margin: 0 0 1.2rem;
+  text-shadow: 0 2px 28px rgba(0,0,0,0.95), 0 0 56px rgba(0,0,0,0.7);
 }
 .gs-line-wrap {
   display: block;
@@ -661,8 +663,9 @@ body {
   font-size: 0.58rem;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: rgba(240,232,220,0.38);
+  color: rgba(240,232,220,0.55);
   opacity: 0;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.9);
 }
 
 /* ── Navigation ── */
@@ -671,26 +674,28 @@ body {
   top: 50%;
   transform: translateY(-50%);
   z-index: 15;
-  background: none;
-  border: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(5,5,8,0.58);
+  border: 1px solid rgba(201,169,110,0.38);
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.9rem;
-  color: rgba(240,232,220,0.45);
-  font-family: var(--font-sans);
-  font-size: 0.52rem;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  padding: 1.2rem 1.5rem;
-  opacity: 0;
-  transition: opacity 0.5s ease, color 0.3s;
+  justify-content: center;
+  color: rgba(240,232,220,0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
-#gallery:hover .gs-btn { opacity: 1; }
-.gs-btn:hover { color: var(--gold); }
-.gs-btn-prev { left: 0; }
-.gs-btn-next { right: 0; }
-.gs-arrow { width: 80px; height: 14px; color: inherit; flex-shrink: 0; }
+.gs-btn:hover {
+  background: rgba(201,169,110,0.2);
+  border-color: rgba(201,169,110,0.8);
+  color: var(--gold);
+  transform: translateY(-50%) scale(1.1);
+}
+.gs-btn-prev { left: 1.5rem; }
+.gs-btn-next { right: 1.5rem; }
 
 /* ── Progress bar ── */
 .gs-progress {
@@ -734,13 +739,13 @@ body {
   bottom: 0; left: 0; right: 0;
   top: auto; width: auto;
   z-index: 10;
-  background: rgba(5,5,8,0.86);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
-  border-top: 1px solid rgba(201,169,110,0.13);
+  background: rgba(4,4,8,0.94);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border-top: 1px solid rgba(201,169,110,0.18);
   border-left: none;
-  padding: 1.6rem 3.5rem 2.8rem;
-  max-height: 44vh;
+  padding: 1.8rem 4rem 3rem;
+  max-height: 46vh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -756,8 +761,8 @@ body {
 }
 .gs-story-body {
   font-family: var(--font-serif);
-  font-size: clamp(0.88rem, 1.3vw, 1.02rem);
-  color: rgba(240,232,220,0.68);
+  font-size: clamp(0.93rem, 1.45vw, 1.08rem);
+  color: rgba(240,232,220,0.92);
   line-height: 2;
   font-weight: 300;
   font-style: italic;
@@ -787,7 +792,32 @@ body {
   .gs-story-body { font-size: 0.92rem; line-height: 1.85; }
 }
 
-/* ── FINAL MESSAGE ── */
+/* ── FINAL MESSAGE — fixed overlay, revealed only after chapter 10 ── */
+#message {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 1.8s ease, visibility 1.8s ease;
+  min-height: unset;
+}
+#message.revealed {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+#message .message-content {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 1.2s ease 0.8s, transform 1.2s ease 0.8s;
+}
+#message.revealed .message-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .message {
   background: radial-gradient(ellipse at center, #1a0820 0%, var(--black) 70%);
   flex-direction: column;
