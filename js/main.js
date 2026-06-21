@@ -909,20 +909,35 @@ document.querySelectorAll('.message-content')
     { x:  '0%', y: '-2%' }, { x:  '0%', y:  '2%' },
   ];
 
+  // Pan directions for landscape — background-position shift only, no div scale
+  const PAN = [
+    { from: '48% 52%', to: '52% 48%' },
+    { from: '52% 48%', to: '48% 52%' },
+    { from: '50% 54%', to: '50% 46%' },
+    { from: '46% 50%', to: '54% 50%' },
+    { from: '54% 46%', to: '46% 54%' },
+    { from: '50% 46%', to: '50% 54%' },
+    { from: '48% 48%', to: '52% 52%' },
+    { from: '52% 52%', to: '48% 48%' },
+  ];
+
   function startKB(slide) {
     const photo = slide.querySelector('.gs-photo');
     const isPortrait = slide.classList.contains('gs-slide--portrait');
-    const k = KB[parseInt(slide.dataset.idx) % KB.length];
+    const idx = parseInt(slide.dataset.idx) % PAN.length;
     gsap.killTweensOf(photo);
     if (isPortrait) {
+      // Portrait has dark space around the image — subtle scale is safe
       gsap.fromTo(photo,
-        { scale: 1.01, x: '0%', y: '0%' },
-        { scale: 1.06, x: '0%', y: '0%', duration: 13, ease: 'none' }
+        { scale: 1.01, backgroundPosition: 'right center' },
+        { scale: 1.06, backgroundPosition: 'right center', duration: 13, ease: 'none' }
       );
     } else {
+      // Landscape fills the viewport — animate background-position only, never scale beyond 1
+      gsap.set(photo, { scale: 1 });
       gsap.fromTo(photo,
-        { scale: 1.04, x: '0%', y: '0%' },
-        { scale: 1.18, x: k.x,  y: k.y,  duration: 13, ease: 'none' }
+        { backgroundPosition: PAN[idx].from },
+        { backgroundPosition: PAN[idx].to, duration: 13, ease: 'none' }
       );
     }
   }
@@ -969,7 +984,7 @@ document.querySelectorAll('.message-content')
 
   function resetSlide(slide) {
     gsap.set(slide, { opacity:0, scale:1, zIndex:1 });
-    gsap.set(slide.querySelector('.gs-photo'), { scale:1.04, x:'0%', y:'0%', opacity:1, clearProps:'clipPath' });
+    gsap.set(slide.querySelector('.gs-photo'), { scale:1, x:'0%', y:'0%', opacity:1, clearProps:'clipPath,backgroundPosition' });
     gsap.set(slide.querySelectorAll('.gs-label, .gs-line, .gs-sub'), { opacity:0, y:0 });
     slide.classList.remove('gs-active');
   }
@@ -988,7 +1003,7 @@ document.querySelectorAll('.message-content')
         to.classList.add('gs-active');
         gsap.set(to.querySelector('.gs-photo'), { scale:0.86, opacity:0 });
       })
-      .to(to.querySelector('.gs-photo'), { scale:1.04, opacity:1, duration:0.75, ease:'power2.out' })
+      .to(to.querySelector('.gs-photo'), { scale:1, opacity:1, duration:0.75, ease:'power2.out' })
       .to([lbT, lbB], { height:0, duration:0.35, ease:'power2.out' }, '-=0.5')
       .call(function() { showCaption(to); startKB(to); });
   }
