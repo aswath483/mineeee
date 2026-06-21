@@ -529,14 +529,14 @@ body {
 }
 
 /* Placeholder gradients */
-.gs-p0 { background: radial-gradient(ellipse at 45% 55%, #3d1525 0%, #050508 75%); }
-.gs-p1 { background: radial-gradient(ellipse at 58% 42%, #0f1b3d 0%, #050508 75%); }
-.gs-p2 { background: radial-gradient(ellipse at 38% 60%, #2e1c08 0%, #050508 75%); }
-.gs-p3 { background: radial-gradient(ellipse at 55% 48%, #0b2018 0%, #050508 75%); }
-.gs-p4 { background: radial-gradient(ellipse at 44% 56%, #2e0c22 0%, #050508 75%); }
-.gs-p5 { background: radial-gradient(ellipse at 52% 44%, #0d1e2e 0%, #050508 75%); }
-.gs-p6 { background: radial-gradient(ellipse at 40% 52%, #25103a 0%, #050508 75%); }
-.gs-p7 { background: radial-gradient(ellipse at 50% 50%, #2e2008 0%, #050508 75%); }
+.gs-p0 { background: #050508 url("../photos/p1.jpg") center/cover no-repeat; }
+.gs-p1 { background: #050508 url("../photos/p2.jpg") center/cover no-repeat; }
+.gs-p2 { background: #050508 url("../photos/p3.jpg") center/cover no-repeat; }
+.gs-p3 { background: #050508 url("../photos/p4.jpg") center/cover no-repeat; }
+.gs-p4 { background: #050508 url("../photos/p5.jpg") center/cover no-repeat; }
+.gs-p5 { background: #050508 url("../photos/p6.jpg") center/cover no-repeat; }
+.gs-p6 { background: #050508 url("../photos/p7.jpg") center/cover no-repeat; }
+.gs-p7 { background: #050508 url("../photos/p8.jpg") center/cover no-repeat; }
 
 .gs-p0::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 45% 55%, rgba(212,99,122,0.22),transparent 60%); }
 .gs-p1::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 58% 42%, rgba(100,130,220,0.2), transparent 60%); }
@@ -547,8 +547,8 @@ body {
 .gs-p6::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 40% 52%, rgba(160,90,220,0.2), transparent 60%); }
 .gs-p7::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 50%, rgba(201,169,110,0.24),transparent 60%); }
 
-.gs-p8 { background: radial-gradient(ellipse at 48% 52%, #1a0e2e 0%, #050508 75%); }
-.gs-p9 { background: radial-gradient(ellipse at 52% 48%, #0a1e1a 0%, #050508 75%); }
+.gs-p8 { background: #050508 url("../photos/p9.jpg") center/cover no-repeat; }
+.gs-p9 { background: #050508 url("../photos/p10.jpg") center/cover no-repeat; }
 .gs-p8::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 48% 52%, rgba(180,100,210,0.2), transparent 60%); }
 .gs-p9::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 52% 48%, rgba(100,180,150,0.18), transparent 60%); }
 
