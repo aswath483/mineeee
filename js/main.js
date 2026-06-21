@@ -911,12 +911,20 @@ document.querySelectorAll('.message-content')
 
   function startKB(slide) {
     const photo = slide.querySelector('.gs-photo');
+    const isPortrait = slide.classList.contains('gs-slide--portrait');
     const k = KB[parseInt(slide.dataset.idx) % KB.length];
     gsap.killTweensOf(photo);
-    gsap.fromTo(photo,
-      { scale: 1.04, x: '0%', y: '0%' },
-      { scale: 1.18, x: k.x,  y: k.y,  duration: 13, ease: 'none' }
-    );
+    if (isPortrait) {
+      gsap.fromTo(photo,
+        { scale: 1.01, x: '0%', y: '0%' },
+        { scale: 1.06, x: '0%', y: '0%', duration: 13, ease: 'none' }
+      );
+    } else {
+      gsap.fromTo(photo,
+        { scale: 1.04, x: '0%', y: '0%' },
+        { scale: 1.18, x: k.x,  y: k.y,  duration: 13, ease: 'none' }
+      );
+    }
   }
 
   function showCaption(slide) {
@@ -979,11 +987,10 @@ document.querySelectorAll('.message-content')
         gsap.set(to,   { zIndex:2, opacity:1 });
         to.classList.add('gs-active');
         gsap.set(to.querySelector('.gs-photo'), { scale:0.86, opacity:0 });
-        startKB(to);
       })
       .to(to.querySelector('.gs-photo'), { scale:1.04, opacity:1, duration:0.75, ease:'power2.out' })
       .to([lbT, lbB], { height:0, duration:0.35, ease:'power2.out' }, '-=0.5')
-      .call(function() { showCaption(to); });
+      .call(function() { showCaption(to); startKB(to); });
   }
 
   // TRANSITION 2: CURTAIN — diagonal wipe sweeps across
@@ -1082,13 +1089,20 @@ document.querySelectorAll('.message-content')
     if (Math.abs(dx) > 44) dx > 0 ? next() : prev();
   }, { passive:true });
 
-  // Pre-cache every slide's background image so transitions never show a blank panel
+  // Pre-cache every slide's background image + detect portrait orientation
   slides.forEach(function(slide) {
     var photo = slide.querySelector('.gs-photo');
     if (!photo) return;
     var bg = window.getComputedStyle(photo).backgroundImage;
     var m  = bg.match(/url\(["']?([^"')]+)["']?\)/);
-    if (m) { new Image().src = m[1]; }
+    if (!m) return;
+    var img = new Image();
+    img.onload = function() {
+      if (img.naturalHeight > img.naturalWidth) {
+        slide.classList.add('gs-slide--portrait');
+      }
+    };
+    img.src = m[1];
   });
 
   // Init
