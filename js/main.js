@@ -1074,6 +1074,15 @@ document.querySelectorAll('.message-content')
     if (Math.abs(dx) > 44) dx > 0 ? next() : prev();
   }, { passive:true });
 
+  // Pre-cache every slide's background image so transitions never show a blank panel
+  slides.forEach(function(slide) {
+    var photo = slide.querySelector('.gs-photo');
+    if (!photo) return;
+    var bg = window.getComputedStyle(photo).backgroundImage;
+    var m  = bg.match(/url\(["']?([^"')]+)["']?\)/);
+    if (m) { new Image().src = m[1]; }
+  });
+
   // Init
   gsap.set(slides[0], { opacity:1, zIndex:2 });
   slides[0].classList.add('gs-active');
