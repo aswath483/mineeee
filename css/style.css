@@ -517,14 +517,14 @@ body {
   z-index: 2;
 }
 
-/* ── Photo — inset framed card, cover fill, rounded corners ── */
+/* ── Photo — near-full-bleed, rounded corners, no cropping ── */
 .gs-photo {
   position: absolute;
   top: 0.9rem;
   left: 0.9rem;
   right: 0.9rem;
-  bottom: calc(30vh + 1.8rem);
-  background-size: cover;
+  bottom: 0.9rem;
+  background-size: contain;
   background-position: center;
   background-color: #050508;
   border-radius: 20px;
@@ -534,14 +534,14 @@ body {
 }
 
 /* Chapter illustrations — full contain, no cropping */
-.gs-p0 { background: #050508 url("../photos/IMG_4684.webp") center/cover no-repeat; }
-.gs-p1 { background: #050508 url("../photos/IMG_4685.webp") center/cover no-repeat; }
-.gs-p2 { background: #050508 url("../photos/IMG_4687.webp") center/cover no-repeat; }
-.gs-p3 { background: #050508 url("../photos/IMG_4688.webp") center/cover no-repeat; }
-.gs-p4 { background: #050508 url("../photos/IMG_4690.webp") center/cover no-repeat; }
-.gs-p5 { background: #050508 url("../photos/IMG_4692.webp") center/cover no-repeat; }
-.gs-p6 { background: #050508 url("../photos/IMG_4695.webp") center/cover no-repeat; }
-.gs-p7 { background: #050508 url("../photos/IMG_4696.webp") center/cover no-repeat; }
+.gs-p0 { background: #050508 url("../photos/IMG_4684.webp") center/contain no-repeat; }
+.gs-p1 { background: #050508 url("../photos/IMG_4685.webp") center/contain no-repeat; }
+.gs-p2 { background: #050508 url("../photos/IMG_4687.webp") center/contain no-repeat; }
+.gs-p3 { background: #050508 url("../photos/IMG_4688.webp") center/contain no-repeat; }
+.gs-p4 { background: #050508 url("../photos/IMG_4690.webp") center/contain no-repeat; }
+.gs-p5 { background: #050508 url("../photos/IMG_4692.webp") center/contain no-repeat; }
+.gs-p6 { background: #050508 url("../photos/IMG_4695.webp") center/contain no-repeat; }
+.gs-p7 { background: #050508 url("../photos/IMG_4696.webp") center/contain no-repeat; }
 
 .gs-p0::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 45% 55%, rgba(212,99,122,0.18),transparent 60%); }
 .gs-p1::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 58% 42%, rgba(100,130,220,0.16), transparent 60%); }
@@ -552,8 +552,8 @@ body {
 .gs-p6::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 40% 52%, rgba(160,90,220,0.16), transparent 60%); }
 .gs-p7::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 50%, rgba(201,169,110,0.2),transparent 60%); }
 
-.gs-p8 { background: #050508 url("../photos/IMG_4686.webp") center/cover no-repeat; }
-.gs-p9 { background: #050508 url("../photos/IMG_4694.webp") center/cover no-repeat; }
+.gs-p8 { background: #050508 url("../photos/IMG_4686.webp") center/contain no-repeat; }
+.gs-p9 { background: #050508 url("../photos/IMG_4694.webp") center/contain no-repeat; }
 .gs-p8::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 48% 52%, rgba(180,100,210,0.16), transparent 60%); }
 .gs-p9::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 52% 48%, rgba(100,180,150,0.14), transparent 60%); }
 
@@ -563,7 +563,7 @@ body {
   top: 0.9rem;
   left: 0.9rem;
   right: 0.9rem;
-  bottom: calc(30vh + 1.8rem);
+  bottom: 0.9rem;
   border-radius: 20px;
   background:
     radial-gradient(ellipse at center, transparent 36%, rgba(0,0,0,0.62) 100%),
@@ -786,8 +786,8 @@ body {
 
 @media (max-width: 700px) {
   .gs-counter { right: 1.8rem; }
-  .gs-photo { top: 0.5rem; left: 0.5rem; right: 0.5rem; bottom: calc(30vh + 1.4rem); border-radius: 14px; }
-  .gs-overlay { top: 0.5rem; left: 0.5rem; right: 0.5rem; bottom: calc(30vh + 1.4rem); border-radius: 14px; }
+  .gs-photo { top: 0.5rem; left: 0.5rem; right: 0.5rem; bottom: 0.5rem; border-radius: 14px; }
+  .gs-overlay { top: 0.5rem; left: 0.5rem; right: 0.5rem; bottom: 0.5rem; border-radius: 14px; }
   .gs-caption { top: 0.5rem; left: 0.5rem; right: 0.5rem; padding: 1.4rem 1.2rem 1.5rem 1.4rem; }
   .gs-story-panel { bottom: 0.5rem; left: 0.5rem; right: 0.5rem; max-height: 32vh; padding: 1rem 1.4rem 1.2rem; border-radius: 10px; }
   .gs-title { font-size: clamp(1.3rem, 6vw, 2.2rem); }
@@ -852,16 +852,16 @@ body {
     left: 0.9rem;
     right: 0.9rem;
     top: 0.9rem;
-    bottom: calc(30vh + 1.8rem);
+    bottom: 0.9rem;
     border-radius: 20px;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
   }
   .gs-slide--portrait .gs-overlay {
     left: 0.9rem;
     right: 0.9rem;
     top: 0.9rem;
-    bottom: calc(30vh + 1.8rem);
+    bottom: 0.9rem;
     border-radius: 20px;
     background:
       radial-gradient(ellipse at center, transparent 36%, rgba(0,0,0,0.62) 100%),
