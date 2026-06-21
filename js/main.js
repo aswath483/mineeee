@@ -922,15 +922,15 @@ document.querySelectorAll('.message-content')
     const isPortrait = slide.classList.contains('gs-slide--portrait');
     const idx = parseInt(slide.dataset.idx) % PAN.length;
     gsap.killTweensOf(photo);
+    gsap.set(photo, { scale: 1 }); // never scale — scaling clips the image
     if (isPortrait) {
-      // Portrait has dark space around the image — subtle scale is safe
+      // Portrait image fills full screen height — only pan horizontally within the dark space
       gsap.fromTo(photo,
-        { scale: 1.01, backgroundPosition: 'right center' },
-        { scale: 1.06, backgroundPosition: 'right center', duration: 13, ease: 'none' }
+        { backgroundPosition: 'right 49%' },
+        { backgroundPosition: 'right 51%', duration: 13, ease: 'none' }
       );
     } else {
-      // Landscape fills the viewport — animate background-position only, never scale beyond 1
-      gsap.set(photo, { scale: 1 });
+      // Landscape — subtle background-position drift, image never leaves bounds
       gsap.fromTo(photo,
         { backgroundPosition: PAN[idx].from },
         { backgroundPosition: PAN[idx].to, duration: 13, ease: 'none' }
