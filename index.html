@@ -33,6 +33,7 @@
 
   <script>
   (function () {
+    var ALWAYS_VISIBLE = true; // set false to re-enable the July 14 countdown lock
     var UNLOCK = new Date(2026, 6, 14, 0, 0, 0); // July 14 2026 midnight, local time
     var screen = document.getElementById('cdscreen');
 
@@ -56,8 +57,7 @@
       document.getElementById('cds-s').textContent = pad(s);
     }
 
-    if (Date.now() >= UNLOCK || location.search.includes('preview')) {
-      // Already past, or dev preview mode — remove immediately, no flash
+    if (ALWAYS_VISIBLE || Date.now() >= UNLOCK || location.search.includes('preview')) {
       if (screen.parentNode) screen.parentNode.removeChild(screen);
       return;
     }
@@ -211,7 +211,7 @@
         <div class="gs-photo gs-p0"></div>
         <div class="gs-overlay"></div>
         <div class="gs-caption">
-          <span class="gs-label">01 <em>—</em> 08</span>
+          <span class="gs-label">01 <em>—</em> 10</span>
           <h2 class="gs-title">
             <span class="gs-line-wrap"><span class="gs-line">the girl with notes</span></span>
             <span class="gs-line-wrap"><span class="gs-line">and a boy with carrom</span></span>
@@ -228,7 +228,7 @@
         <div class="gs-photo gs-p1"></div>
         <div class="gs-overlay"></div>
         <div class="gs-caption">
-          <span class="gs-label">02 <em>—</em> 08</span>
+          <span class="gs-label">02 <em>—</em> 10</span>
           <h2 class="gs-title">
             <span class="gs-line-wrap"><span class="gs-line">a hi, a smile</span></span>
             <span class="gs-line-wrap"><span class="gs-line">and a name I'll never forget</span></span>
@@ -237,20 +237,37 @@
         </div>
         <div class="gs-story-panel">
           <div class="gs-sp-rule"></div>
-          <p class="gs-story-body">Interview done, got the job at Tagit. First day of our corporate life — excited and at the same time the pressure was there. Can we survive here? Can we have friends here? But the good thing is everyone came out of college so we had a training session for almost 1 month and it felt just like college. Tagit is the company that gave me two lives — one for my professional career, the kickstart of everything, and another, a new beginning of something I never knew was coming. That beginning came when she herself sat next to me. Haha. I think the seat arrangements were not done by management — they were done by GOD. Because why would a service team girl come and sit next to a product team guy? She could have sat somewhere else, right? If she hadn't sat next to me, I don't think I would be creating this story today. I said hi to her and she replied with a hi and a smile. She used to talk with a lot of formality at first — I told her she can talk casually, no need to be formal. I forgot to mention one thing — the beautiful name of the girl. Her name is Surekaa. The name that is going to be etched in my heart for the rest of my life — though at that time I had no idea. Fifteen days went like a tracer bullet — so fast. I was going to the product team (MB side) and she to the service side. Moving out of that training room, after so many years I felt bad about moving away from someone. It was weird, actually. Even I was in a relationship at the time — actually, both of us were. But the bond we had during those 15 days — we used to tease each other, oh sorry, I used to tease her, she used to smile and say "hey, poda" always with a sportive mindset. We'd go drink rose milks. We'd discuss Java patterns that I've never once used in my professional career. Unlimited laughter inside that room. Everything hit me when I came out of that room. It's somehow special, right — if a girl you've known for just 15 days has tears in her eyes when you're leaving, and you feel exactly the same. That day a new bond was created — not in the form of a relationship, but in the form of friends. I don't know what she felt. But it was something special to me, obviously. And the boy moved out — his name is Aswath. Yes, that's me, as you know.</p>
+          <p class="gs-story-body">Interview done, got the job at Tagit. First day of our corporate life — excited and at the same time the pressure was there. Can we survive here? Can we have friends here? But the good thing is everyone came out of college so we had a training session for almost 1 month and it felt just like college. Tagit is the company that gave me two lives — one for my professional career, the kickstart of everything, and another, a new beginning of something I never knew was coming. That beginning came when she herself sat next to me. Haha. I think the seat arrangements were not done by management — they were done by GOD. Because why would a service team girl come and sit next to a product team guy? She could have sat somewhere else, right? If she hadn't sat next to me, I don't think I would be creating this story today. I said hi to her and she replied with a hi and a smile. She used to talk with a lot of formality at first — I told her she can talk casually, no need to be formal. I forgot to mention one thing — the beautiful name of the girl. Her name is Surekaa. The name that is going to be etched in my heart for the rest of my life — though at that time I had no idea.</p>
         </div>
       </div>
 
       <div class="gs-slide" data-idx="2">
-        <div class="gs-photo gs-p2"></div>
+        <div class="gs-photo gs-p8"></div>
         <div class="gs-overlay"></div>
         <div class="gs-caption">
-          <span class="gs-label">03 <em>—</em> 08</span>
+          <span class="gs-label">03 <em>—</em> 10</span>
           <h2 class="gs-title">
             <span class="gs-line-wrap"><span class="gs-line">fifteen days</span></span>
             <span class="gs-line-wrap"><span class="gs-line">like a tracer bullet</span></span>
           </h2>
-          <p class="gs-sub">rose milk, Java patterns & tears at the door</p>
+          <p class="gs-sub">rose milk, Java patterns &amp; tears at the door</p>
+        </div>
+        <div class="gs-story-panel">
+          <div class="gs-sp-rule"></div>
+          <p class="gs-story-body">Fifteen days went like a tracer bullet — so fast. I was going to the product team (MB side) and she to the service side. Moving out of that training room, after so many years I felt bad about moving away from someone. It was weird, actually. Even I was in a relationship at the time — actually, both of us were. But the bond we had during those 15 days — we used to tease each other, oh sorry, I used to tease her, she used to smile and say &quot;hey, poda&quot; always with a sportive mindset. We'd go drink rose milks. We'd discuss Java patterns that I've never once used in my professional career. Unlimited laughter inside that room. Everything hit me when I came out of that room. It's somehow special, right — if a girl you've known for just 15 days has tears in her eyes when you're leaving, and you feel exactly the same. That day a new bond was created — not in the form of a relationship, but in the form of friends. I don't know what she felt. But it was something special to me, obviously. And the boy moved out — his name is Aswath. Yes, that's me, as you know.</p>
+        </div>
+      </div>
+
+      <div class="gs-slide" data-idx="3">
+        <div class="gs-photo gs-p2"></div>
+        <div class="gs-overlay"></div>
+        <div class="gs-caption">
+          <span class="gs-label">04 <em>—</em> 10</span>
+          <h2 class="gs-title">
+            <span class="gs-line-wrap"><span class="gs-line">the bond</span></span>
+            <span class="gs-line-wrap"><span class="gs-line">that never faded</span></span>
+          </h2>
+          <p class="gs-sub">8 months apart  ·  the trip  ·  possessiveness</p>
         </div>
         <div class="gs-story-panel">
           <div class="gs-sp-rule"></div>
@@ -258,11 +275,11 @@
         </div>
       </div>
 
-      <div class="gs-slide" data-idx="3">
+      <div class="gs-slide" data-idx="4">
         <div class="gs-photo gs-p3"></div>
         <div class="gs-overlay"></div>
         <div class="gs-caption">
-          <span class="gs-label">04 <em>—</em> 08</span>
+          <span class="gs-label">05 <em>—</em> 10</span>
           <h2 class="gs-title">
             <span class="gs-line-wrap"><span class="gs-line">two helmets</span></span>
             <span class="gs-line-wrap"><span class="gs-line">one reserved for her</span></span>
@@ -275,16 +292,16 @@
         </div>
       </div>
 
-      <div class="gs-slide" data-idx="4">
+      <div class="gs-slide" data-idx="5">
         <div class="gs-photo gs-p4"></div>
         <div class="gs-overlay"></div>
         <div class="gs-caption">
-          <span class="gs-label">05 <em>—</em> 08</span>
+          <span class="gs-label">06 <em>—</em> 10</span>
           <h2 class="gs-title">
             <span class="gs-line-wrap"><span class="gs-line">thooya on the speakers</span></span>
             <span class="gs-line-wrap"><span class="gs-line">sand under our feet</span></span>
           </h2>
-          <p class="gs-sub">Thiruvanmiyur  ·  parotta, kalakki & beach</p>
+          <p class="gs-sub">Thiruvanmiyur  ·  parotta, kalakki &amp; beach</p>
         </div>
         <div class="gs-story-panel">
           <div class="gs-sp-rule"></div>
@@ -292,11 +309,28 @@
         </div>
       </div>
 
-      <div class="gs-slide" data-idx="5">
+      <div class="gs-slide" data-idx="6">
         <div class="gs-photo gs-p5"></div>
         <div class="gs-overlay"></div>
         <div class="gs-caption">
-          <span class="gs-label">06 <em>—</em> 08</span>
+          <span class="gs-label">07 <em>—</em> 10</span>
+          <h2 class="gs-title">
+            <span class="gs-line-wrap"><span class="gs-line">she took</span></span>
+            <span class="gs-line-wrap"><span class="gs-line">my mother's hand</span></span>
+          </h2>
+          <p class="gs-sub">Bommi Apartments  ·  paal kaachanum  ·  Tiffin Shastra</p>
+        </div>
+        <div class="gs-story-panel">
+          <div class="gs-sp-rule"></div>
+          <p class="gs-story-body">Days went by. I was living in a room with friends and trying to move to an individual house. I don't know why, but I always kept Surekaa in my mind when I thought about it — if I rent a house I can invite her and spend quality time, right? That thought would never have come to my mind if it wasn't for Surekaa, because I am not the guy who has the courage to bring a girl to my house. But somehow in my mind I thought I can bring her over, watch movies together, something like that. I don't know why. Reason? IDK. And that's the truth — for some things we don't need a reason. Something is beyond that. So I got a house on rent and it was time to start living there. I thought I would live there alone. But you don't know what happened next — and it surprised me as well. If you asked me now in 2026 would you believe this could have happened back then, I honestly don't think I would believe it. But it happened. It's kind of the beginning of something — and the beginning of fulfilling the reason I was born, I think.<br><br>We had to do paal kaachanum — which we usually do at the best time, early morning at 5 o'clock. Before that day, my parents came from Thiruvarur and stayed at the new home. That same evening, there was a plan — my mother and I had to go buy things for the next morning ritual. Unfortunately I got stuck with office work. The first thing that came to my mind was her. I took my phone and called her. She said she was also occupied with office work, then she called again and said "nan poren, konjam late aagum" — she might have thought, Aswath is asking, how can I not go? She arrived at my home and took my mom out to buy everything that was needed. She is the first girl I ever introduced to my mother. They shared such a good bond that day. My mom said her favourite colour is blue — same as Surekaa's. Just saying. Then me, Surekaa, Ishu and Amma had breakfast at Tiffin Shastra. Then my parents went back to Thiruvarur.</p>
+        </div>
+      </div>
+
+      <div class="gs-slide" data-idx="7">
+        <div class="gs-photo gs-p9"></div>
+        <div class="gs-overlay"></div>
+        <div class="gs-caption">
+          <span class="gs-label">08 <em>—</em> 10</span>
           <h2 class="gs-title">
             <span class="gs-line-wrap"><span class="gs-line">she slept next to me</span></span>
             <span class="gs-line-wrap"><span class="gs-line">like she always belonged there</span></span>
@@ -305,15 +339,15 @@
         </div>
         <div class="gs-story-panel">
           <div class="gs-sp-rule"></div>
-          <p class="gs-story-body">Days went by. I was living in a room with friends and trying to move to an individual house. I don't know why, but I always kept Surekaa in my mind when I thought about it — if I rent a house I can invite her and spend quality time, right? That thought would never have come to my mind if it wasn't for Surekaa, because I am not the guy who has the courage to bring a girl to my house. But somehow in my mind I thought I can bring her over, watch movies together, something like that. I don't know why. Reason? IDK. And that's the truth — for some things we don't need a reason. Something is beyond that. So I got a house on rent and it was time to start living there. I thought I would live there alone. But you don't know what happened next — and it surprised me as well. If you asked me now in 2026 would you believe this could have happened back then, I honestly don't think I would believe it. But it happened. It's kind of the beginning of something — and the beginning of fulfilling the reason I was born, I think.<br><br>We had to do paal kaachanum — which we usually do at the best time, early morning at 5 o'clock. Before that day, my parents came from Thiruvarur and stayed at the new home. That same evening, there was a plan — my mother and I had to go buy things for the next morning ritual. Unfortunately I got stuck with office work. The first thing that came to my mind was her. I took my phone and called her. She said she was also occupied with office work, then she called again and said "nan poren, konjam late aagum" — she might have thought, Aswath is asking, how can I not go? She arrived at my home and took my mom out to buy everything that was needed. She is the first girl I ever introduced to my mother. They shared such a good bond that day. My mom said her favourite colour is blue — same as Surekaa's. Just saying. Then me, Surekaa, Ishu and Amma had breakfast at Tiffin Shastra. Then my parents went back to Thiruvarur.<br><br>After some days, the AC got fixed — and the home became messy and sandy after all the drilling. I still don't know how I had the courage to ask a girl for help with this and also invite her to stay with me. The trust she had in me — she came and helped me. CSK match was being telecasted. She even clicked a picture of me with a mop in my hand. Cleaning done. And we had to sleep, right? She never hesitated. She just slept next to me without the fear of being with a boy at night in an individual home. It made me feel so special. She slept like a child. She used the blue bedsheet — which later became our favourite. That's a different story, haha. I even took a picture of her while she was sleeping because it felt so cute and it surprised me — to see a girl next to me who wasn't my girlfriend (till that point). Then we used to spend Thursday to Sunday in our new rented home. Yes — our home. Not my home. Because somehow she became part of it.</p>
+          <p class="gs-story-body">After some days, the AC got fixed — and the home became messy and sandy after all the drilling. I still don't know how I had the courage to ask a girl for help with this and also invite her to stay with me. The trust she had in me — she came and helped me. CSK match was being telecasted. She even clicked a picture of me with a mop in my hand. Cleaning done. And we had to sleep, right? She never hesitated. She just slept next to me without the fear of being with a boy at night in an individual home. It made me feel so special. She slept like a child. She used the blue bedsheet — which later became our favourite. That's a different story, haha. I even took a picture of her while she was sleeping because it felt so cute and it surprised me — to see a girl next to me who wasn't my girlfriend (till that point). Then we used to spend Thursday to Sunday in our new rented home. Yes — our home. Not my home. Because somehow she became part of it.</p>
         </div>
       </div>
 
-      <div class="gs-slide" data-idx="6">
+      <div class="gs-slide" data-idx="8">
         <div class="gs-photo gs-p6"></div>
         <div class="gs-overlay"></div>
         <div class="gs-caption">
-          <span class="gs-label">07 <em>—</em> 08</span>
+          <span class="gs-label">09 <em>—</em> 10</span>
           <h2 class="gs-title">
             <span class="gs-line-wrap"><span class="gs-line">Jersey made me cry</span></span>
             <span class="gs-line-wrap"><span class="gs-line">she made it worthwhile</span></span>
@@ -326,11 +360,11 @@
         </div>
       </div>
 
-      <div class="gs-slide" data-idx="7">
+      <div class="gs-slide" data-idx="9">
         <div class="gs-photo gs-p7"></div>
         <div class="gs-overlay"></div>
         <div class="gs-caption">
-          <span class="gs-label">08 <em>—</em> 08</span>
+          <span class="gs-label">10 <em>—</em> 10</span>
           <h2 class="gs-title">
             <span class="gs-line-wrap"><span class="gs-line">love was always there</span></span>
             <span class="gs-line-wrap"><span class="gs-line">we just finally said it</span></span>
@@ -363,7 +397,7 @@
 
     <!-- Progress -->
     <div class="gs-progress"><div class="gs-progress-fill" id="gs-pfill"></div></div>
-    <div class="gs-counter"><span id="gs-curr">01</span><span class="gs-csep"> / </span><span class="gs-ctotal">08</span></div>
+    <div class="gs-counter"><span id="gs-curr">01</span><span class="gs-csep"> / </span><span class="gs-ctotal">10</span></div>
 
     <!-- Section blends -->
     <div class="gs-edge-t"></div>
