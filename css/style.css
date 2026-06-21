@@ -529,6 +529,7 @@ body {
   background-color: #050508;
   border-radius: 20px;
   overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(201,169,110,0.22), 0 8px 48px rgba(0,0,0,0.7);
   will-change: transform;
   transform-origin: center center;
 }
