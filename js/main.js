@@ -599,7 +599,7 @@
   document.getElementById('np-enter').addEventListener('click', () => {
     overlay.classList.add('hide');
     setTimeout(() => overlay.remove(), 1100);
-    startYT(); // must be called directly in click handler — scroll events are blocked by browser autoplay policy
+    setTimeout(startYT, 5000); // delay 5s; user gesture already satisfies autoplay policy
   });
 
   document.getElementById('dev-skip').addEventListener('click', () => {
@@ -1303,20 +1303,21 @@ function startYT() {
 }
 
 function updateMusicIcon(on) {
-  document.getElementById('audio-icon').textContent = on ? '■' : '♪';
+  const icon = document.getElementById('audio-icon');
+  if (icon) icon.textContent = on ? '■' : '♪';
 }
 
-const audioBtn  = document.getElementById('audio-control');
-const audioIcon = document.getElementById('audio-icon');
-
-audioBtn.addEventListener('click', () => {
-  if (!ytReady) return;
-  const state = ytPlayer.getPlayerState();
-  if (state === YT.PlayerState.PLAYING) {
-    ytPlayer.pauseVideo();
-    updateMusicIcon(false);
-  } else {
-    ytPlayer.playVideo();
-    updateMusicIcon(true);
-  }
-});
+const audioBtn = document.getElementById('audio-control');
+if (audioBtn) {
+  audioBtn.addEventListener('click', () => {
+    if (!ytReady) return;
+    const state = ytPlayer.getPlayerState();
+    if (state === YT.PlayerState.PLAYING) {
+      ytPlayer.pauseVideo();
+      updateMusicIcon(false);
+    } else {
+      ytPlayer.playVideo();
+      updateMusicIcon(true);
+    }
+  });
+}
