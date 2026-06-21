@@ -1201,13 +1201,18 @@ document.querySelectorAll('.message-content')
     if (e.key === 'ArrowLeft')  prev();
   });
 
-  var touchX = 0;
+  var touchX = 0, touchY = 0, touchInPanel = false;
   document.getElementById('gallery').addEventListener('touchstart', function(e) {
     touchX = e.touches[0].clientX;
+    touchY = e.touches[0].clientY;
+    var panel = document.querySelector('.gs-slide.gs-active .gs-story-panel');
+    touchInPanel = panel ? panel.contains(e.target) : false;
   }, { passive:true });
   document.getElementById('gallery').addEventListener('touchend', function(e) {
+    if (touchInPanel) return;
     var dx = touchX - e.changedTouches[0].clientX;
-    if (Math.abs(dx) > 44) dx > 0 ? next() : prev();
+    var dy = touchY - e.changedTouches[0].clientY;
+    if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy)) dx > 0 ? next() : prev();
   }, { passive:true });
 
   // Pre-cache every slide's background image + detect portrait orientation

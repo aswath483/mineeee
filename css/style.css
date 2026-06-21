@@ -523,7 +523,7 @@ body {
   top: 0.9rem;
   left: 0.9rem;
   right: 0.9rem;
-  bottom: calc(34vh + 1.8rem);
+  bottom: calc(52vh + 1.8rem);
   background-size: contain;
   background-position: center;
   background-color: #050508;
@@ -564,7 +564,7 @@ body {
   top: 0.9rem;
   left: 0.9rem;
   right: 0.9rem;
-  bottom: calc(34vh + 1.8rem);
+  bottom: calc(52vh + 1.8rem);
   border-radius: 20px;
   background:
     radial-gradient(ellipse at center, transparent 36%, rgba(0,0,0,0.62) 100%),
@@ -637,10 +637,8 @@ body {
 
 /* ── Caption — top-left inside photo frame ── */
 .gs-caption {
-  position: absolute;
-  top: 0.9rem; left: 0.9rem; right: 0.9rem;
-  padding: 1.8rem 2rem 2rem 2.2rem;
-  z-index: 10;
+  position: relative;
+  padding: 0 0 0.8rem;
 }
 .gs-label {
   display: inline-block;
@@ -761,8 +759,8 @@ body {
   border-left: none;
   box-shadow: 0 0 0 1px rgba(201,169,110,0.14);
   border-radius: 14px;
-  padding: 1.2rem 2.5rem 1.5rem;
-  max-height: 30vh;
+  padding: 0 2.5rem 1.5rem;
+  max-height: 52vh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -773,7 +771,7 @@ body {
   height: 1px;
   background: var(--gold);
   opacity: 0.45;
-  margin-bottom: 2rem;
+  margin: 0.3rem 0 1.5rem;
   flex-shrink: 0;
 }
 .gs-story-body {
@@ -795,10 +793,10 @@ body {
 
 @media (max-width: 700px) {
   .gs-counter { right: 1.8rem; }
-  .gs-photo { top: 0.5rem; left: 0.5rem; right: 0.5rem; bottom: calc(42vh + 1.4rem); border-radius: 14px; }
-  .gs-overlay { top: 0.5rem; left: 0.5rem; right: 0.5rem; bottom: calc(42vh + 1.4rem); border-radius: 14px; }
-  .gs-caption { top: 0.5rem; left: 0.5rem; right: 0.5rem; padding: 1.4rem 1.2rem 1.5rem 1.4rem; }
-  .gs-story-panel { bottom: 0.5rem; left: 0.5rem; right: 0.5rem; max-height: 42vh; padding: 1rem 1.4rem 1.4rem; border-radius: 10px; }
+  .gs-photo { top: 0.5rem; left: 0.5rem; right: 0.5rem; bottom: calc(62vh + 1.4rem); border-radius: 14px; }
+  .gs-overlay { top: 0.5rem; left: 0.5rem; right: 0.5rem; bottom: calc(62vh + 1.4rem); border-radius: 14px; }
+  .gs-caption { position: relative; padding: 0 0 0.5rem; }
+  .gs-story-panel { bottom: 0.5rem; left: 0.5rem; right: 0.5rem; max-height: 62vh; padding: 0 1.4rem 1.4rem; border-radius: 10px; }
   .gs-title { font-size: clamp(1.3rem, 6vw, 2.2rem); }
 }
 
@@ -810,7 +808,7 @@ body {
     display: flex;
     opacity: 0.8;
     top: auto;
-    bottom: calc(42vh + 1.8rem);
+    bottom: calc(62vh + 1.8rem);
     transform: none;
     width: 44px;
     height: 44px;
@@ -843,17 +841,16 @@ body {
 }
 /* caption floats top-left, story card sits bottom-left — no overlap possible */
 .gs-slide--portrait .gs-caption {
-  top: 0.9rem;
-  left: 0.9rem;
-  right: calc(42% + 0.9rem);
+  position: relative;
+  padding: 0 0 0.8rem;
 }
 .gs-slide--portrait .gs-story-panel {
+  top: 0.9rem;
   bottom: 0.9rem;
   left: 0.9rem;
   right: calc(42% + 0.9rem);
-  top: auto;
   width: auto;
-  max-height: 48vh;
+  max-height: none;
   border-radius: 14px;
   background: rgba(4,4,8,0.92);
   backdrop-filter: blur(24px);
@@ -861,7 +858,7 @@ body {
   border-top: none;
   border-right: none;
   box-shadow: 0 0 0 1px rgba(201,169,110,0.12);
-  padding: 1.2rem 1.8rem 1.5rem;
+  padding: 0 1.8rem 1.5rem;
   display: block;
   justify-content: unset;
 }
@@ -872,7 +869,7 @@ body {
     left: 0.5rem;
     right: 0.5rem;
     top: 0.5rem;
-    bottom: calc(42vh + 1.4rem);
+    bottom: calc(62vh + 1.4rem);
     border-radius: 14px;
     background-size: contain;
     background-position: center;
@@ -881,7 +878,7 @@ body {
     left: 0.5rem;
     right: 0.5rem;
     top: 0.5rem;
-    bottom: calc(42vh + 1.4rem);
+    bottom: calc(62vh + 1.4rem);
     border-radius: 14px;
     background:
       radial-gradient(ellipse at center, transparent 36%, rgba(0,0,0,0.62) 100%),
@@ -889,25 +886,24 @@ body {
         transparent 38%, transparent 44%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.92) 100%);
   }
   .gs-slide--portrait .gs-caption {
-    top: 0.9rem;
-    left: 0.9rem;
-    right: 0.9rem;
+    position: relative;
+    padding: 0 0 0.5rem;
   }
   .gs-slide--portrait .gs-story-panel {
-    bottom: 0.9rem;
-    left: 0.9rem;
-    right: 0.9rem;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
     top: auto;
     width: auto;
-    max-height: 30vh;
-    border-radius: 14px;
+    max-height: 62vh;
+    border-radius: 10px;
     background: rgba(4,4,8,0.92);
     backdrop-filter: blur(32px);
     -webkit-backdrop-filter: blur(32px);
     border-top: none;
     border-right: none;
     box-shadow: 0 0 0 1px rgba(201,169,110,0.14);
-    padding: 1.2rem 1.8rem 1.5rem;
+    padding: 0 1.4rem 1.4rem;
     display: block;
     justify-content: unset;
   }
