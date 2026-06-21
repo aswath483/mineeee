@@ -1055,7 +1055,15 @@ document.querySelectorAll('.message-content')
     else                         doLeak(from, to, onDone);
   }
 
-  function next() { goTo((current + 1) % total); }
+  function revealMessage() {
+    var msg = document.getElementById('message');
+    msg.classList.add('revealed');
+  }
+
+  function next() {
+    if (current === total - 1) { revealMessage(); return; }
+    goTo(current + 1);
+  }
   function prev() { goTo((current - 1 + total) % total); }
 
   document.getElementById('gs-next').addEventListener('click', next);
