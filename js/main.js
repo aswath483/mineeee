@@ -599,11 +599,7 @@
   document.getElementById('np-enter').addEventListener('click', () => {
     overlay.classList.add('hide');
     setTimeout(() => overlay.remove(), 1100);
-    // Start music on first scroll, not on click — feels natural as she scrolls in
-    window.addEventListener('scroll', function onFirstScroll() {
-      window.removeEventListener('scroll', onFirstScroll);
-      startYT();
-    }, { once: true });
+    startYT(); // must be called directly in click handler — scroll events are blocked by browser autoplay policy
   });
 
   document.getElementById('dev-skip').addEventListener('click', () => {
