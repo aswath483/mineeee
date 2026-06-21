@@ -866,19 +866,19 @@ body {
 /* Portrait on mobile: use same framed-card layout as landscape */
 @media (max-width: 768px) {
   .gs-slide--portrait .gs-photo {
-    left: 0.5rem;
-    right: 0.5rem;
+    left: 8%;
+    right: 8%;
     top: 0.5rem;
-    bottom: calc(62vh + 1.4rem);
+    bottom: calc(42vh + 1.4rem);
     border-radius: 14px;
     background-size: contain;
     background-position: center;
   }
   .gs-slide--portrait .gs-overlay {
-    left: 0.5rem;
-    right: 0.5rem;
+    left: 8%;
+    right: 8%;
     top: 0.5rem;
-    bottom: calc(62vh + 1.4rem);
+    bottom: calc(42vh + 1.4rem);
     border-radius: 14px;
     background:
       radial-gradient(ellipse at center, transparent 36%, rgba(0,0,0,0.62) 100%),
@@ -895,7 +895,7 @@ body {
     right: 0.5rem;
     top: auto;
     width: auto;
-    max-height: 62vh;
+    max-height: 42vh;
     border-radius: 10px;
     background: rgba(4,4,8,0.92);
     backdrop-filter: blur(32px);
