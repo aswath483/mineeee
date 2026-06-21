@@ -528,15 +528,15 @@ body {
   transform-origin: center center;
 }
 
-/* Placeholder gradients */
-.gs-p0 { background: #050508 url("../photos/p1.jpg") center/cover no-repeat; }
-.gs-p1 { background: #050508 url("../photos/p2.jpg") center/cover no-repeat; }
-.gs-p2 { background: #050508 url("../photos/p3.jpg") center/cover no-repeat; }
-.gs-p3 { background: #050508 url("../photos/p4.jpg") center/cover no-repeat; }
-.gs-p4 { background: #050508 url("../photos/p5.jpg") center/cover no-repeat; }
-.gs-p5 { background: #050508 url("../photos/p6.jpg") center/cover no-repeat; }
-.gs-p6 { background: #050508 url("../photos/p7.jpg") center/cover no-repeat; }
-.gs-p7 { background: #050508 url("../photos/p8.jpg") center/cover no-repeat; }
+/* Chapter illustrations — ch01–10 in slide order */
+.gs-p0 { background: #050508 url("../photos/IMG_4684.png") center/cover no-repeat; } /* ch01 interview */
+.gs-p1 { background: #050508 url("../photos/IMG_4685.png") center/cover no-repeat; } /* ch02 day 1 */
+.gs-p2 { background: #050508 url("../photos/IMG_4687.png") center/cover no-repeat; } /* ch04 bond */
+.gs-p3 { background: #050508 url("../photos/IMG_4688.png") center/cover no-repeat; } /* ch05 helmets */
+.gs-p4 { background: #050508 url("../photos/IMG_4690.png") center/cover no-repeat; } /* ch06 beach */
+.gs-p5 { background: #050508 url("../photos/IMG_4692.png") center/cover no-repeat; } /* ch07 mother */
+.gs-p6 { background: #050508 url("../photos/IMG_4695.png") center/cover no-repeat; } /* ch09 Jersey */
+.gs-p7 { background: #050508 url("../photos/IMG_4696.png") center/cover no-repeat; } /* ch10 couple */
 
 .gs-p0::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 45% 55%, rgba(212,99,122,0.22),transparent 60%); }
 .gs-p1::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 58% 42%, rgba(100,130,220,0.2), transparent 60%); }
@@ -547,8 +547,8 @@ body {
 .gs-p6::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 40% 52%, rgba(160,90,220,0.2), transparent 60%); }
 .gs-p7::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 50%, rgba(201,169,110,0.24),transparent 60%); }
 
-.gs-p8 { background: #050508 url("../photos/p9.jpg") center/cover no-repeat; }
-.gs-p9 { background: #050508 url("../photos/p10.jpg") center/cover no-repeat; }
+.gs-p8 { background: #050508 url("../photos/IMG_4686.png") center/cover no-repeat; } /* ch03 fifteen days */
+.gs-p9 { background: #050508 url("../photos/IMG_4694.png") center/cover no-repeat; } /* ch08 blue bedsheet */
 .gs-p8::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 48% 52%, rgba(180,100,210,0.2), transparent 60%); }
 .gs-p9::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 52% 48%, rgba(100,180,150,0.18), transparent 60%); }
 
