@@ -1125,9 +1125,9 @@ function fadeInYT() {
   updateMusicIcon(true);
   let vol = 0;
   const fade = setInterval(() => {
-    vol = Math.min(vol + 3, 70);
+    vol = Math.min(vol + 2, 35);
     ytPlayer.setVolume(vol);
-    if (vol >= 70) clearInterval(fade);
+    if (vol >= 35) clearInterval(fade);
   }, 80); // ~1.9 s fade-in
 }
 
