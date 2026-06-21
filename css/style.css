@@ -521,6 +521,7 @@ body {
 .gs-photo {
   position: absolute;
   inset: 0;
+  right: 45%;
   background-size: cover;
   background-position: center;
   will-change: transform;
@@ -550,6 +551,7 @@ body {
 .gs-overlay {
   position: absolute;
   inset: 0;
+  right: 45%;
   background: linear-gradient(
     to bottom,
     rgba(0,0,0,0.35) 0%,
@@ -616,8 +618,8 @@ body {
 /* ── Caption ── */
 .gs-caption {
   position: absolute;
-  bottom: 0; left: 0; right: 0;
-  padding: 2rem 4.5rem 4.5rem;
+  bottom: 0; left: 0; right: 45%;
+  padding: 2rem 2rem 4.5rem 3.5rem;
   z-index: 10;
 }
 .gs-label {
@@ -633,7 +635,7 @@ body {
 .gs-label em { font-style: normal; opacity: 0.5; }
 .gs-title {
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 6.5vw, 5rem);
+  font-size: clamp(1.6rem, 4.2vw, 3.8rem);
   font-weight: 300;
   font-style: italic;
   line-height: 1.1;
@@ -682,13 +684,13 @@ body {
 #gallery:hover .gs-btn { opacity: 1; }
 .gs-btn:hover { color: var(--gold); }
 .gs-btn-prev { left: 0; }
-.gs-btn-next { right: 0; }
+.gs-btn-next { right: 45%; }
 .gs-arrow { width: 80px; height: 14px; color: inherit; flex-shrink: 0; }
 
 /* ── Progress bar ── */
 .gs-progress {
   position: absolute;
-  bottom: 0; left: 0; right: 0;
+  bottom: 0; left: 0; right: 45%;
   height: 1px;
   background: rgba(240,232,220,0.1);
   z-index: 15;
@@ -703,7 +705,7 @@ body {
 /* ── Counter ── */
 .gs-counter {
   position: absolute;
-  top: 1.8rem; right: 2.2rem;
+  top: 1.8rem; left: 3.5rem; right: auto;
   z-index: 15;
   font-family: var(--font-sans);
   font-size: 0.55rem;
@@ -715,17 +717,76 @@ body {
 
 /* ── Section blends ── */
 .gs-edge-t, .gs-edge-b {
-  position: absolute; left: 0; right: 0;
+  position: absolute; left: 0; right: 45%;
   height: 16%; pointer-events: none; z-index: 20;
 }
 .gs-edge-t { top: 0;    background: linear-gradient(to bottom, #000, transparent); }
 .gs-edge-b { bottom: 0; background: linear-gradient(to top,    #000, transparent); }
 
+/* ── Story Panel ── */
+.gs-story-panel {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 45%;
+  z-index: 10;
+  background: rgba(7,7,12,0.97);
+  border-left: 1px solid rgba(201,169,110,0.1);
+  padding: 4.5rem 3.5rem 4.5rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.gs-story-panel::-webkit-scrollbar { width: 2px; }
+.gs-story-panel::-webkit-scrollbar-thumb { background: rgba(201,169,110,0.2); border-radius: 1px; }
+.gs-sp-rule {
+  width: 2rem;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.45;
+  margin-bottom: 2rem;
+  flex-shrink: 0;
+}
+.gs-story-body {
+  font-family: var(--font-serif);
+  font-size: clamp(0.88rem, 1.3vw, 1.02rem);
+  color: rgba(240,232,220,0.68);
+  line-height: 2;
+  font-weight: 300;
+  font-style: italic;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 1s ease 0.55s, transform 1s ease 0.55s;
+}
+.gs-slide.gs-active .gs-story-body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 700px) {
+  .gs-photo   { right: 0; bottom: 50%; }
+  .gs-overlay { right: 0; bottom: 50%; }
+  .gs-caption { display: none; }
+  .gs-counter { left: 1.5rem; }
+  .gs-btn-next { right: 0; }
+  .gs-progress { right: 0; }
+  .gs-edge-t, .gs-edge-b { right: 0; }
+  .gs-story-panel {
+    width: 100%;
+    top: 50%;
+    border-left: none;
+    border-top: 1px solid rgba(201,169,110,0.1);
+    padding: 2rem 1.5rem 5rem;
+    justify-content: flex-start;
+  }
+}
+
 @media (max-width: 600px) {
-  .gs-caption { padding: 1.5rem 1.8rem 4rem; }
   .gs-btn { display: none; }
-  .gs-title { font-size: clamp(1.6rem, 8vw, 2.8rem); }
+  .gs-title { font-size: clamp(1.5rem, 7vw, 2.6rem); }
   #gallery .gs-btn { opacity: 0.6; display: flex; }
+  .gs-story-body { font-size: 0.92rem; line-height: 1.85; }
 }
 
 /* ── FINAL MESSAGE ── */
