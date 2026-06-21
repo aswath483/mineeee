@@ -517,13 +517,13 @@ body {
   z-index: 2;
 }
 
-/* ── Photo — near-full-bleed, rounded corners, no cropping ── */
+/* ── Photo — top card, stops above story panel, no overlap ── */
 .gs-photo {
   position: absolute;
   top: 0.9rem;
   left: 0.9rem;
   right: 0.9rem;
-  bottom: 0.9rem;
+  bottom: calc(34vh + 1.8rem);
   background-size: contain;
   background-position: center;
   background-color: #050508;
@@ -564,7 +564,7 @@ body {
   top: 0.9rem;
   left: 0.9rem;
   right: 0.9rem;
-  bottom: 0.9rem;
+  bottom: calc(34vh + 1.8rem);
   border-radius: 20px;
   background:
     radial-gradient(ellipse at center, transparent 36%, rgba(0,0,0,0.62) 100%),
@@ -683,7 +683,7 @@ body {
 /* ── Navigation ── */
 .gs-btn {
   position: absolute;
-  top: calc(50% - 15vh);
+  top: calc(50% - 17vh);
   transform: translateY(-50%);
   z-index: 15;
   width: 52px;
@@ -787,8 +787,8 @@ body {
 
 @media (max-width: 700px) {
   .gs-counter { right: 1.8rem; }
-  .gs-photo { top: 0.5rem; left: 0.5rem; right: 0.5rem; bottom: 0.5rem; border-radius: 14px; }
-  .gs-overlay { top: 0.5rem; left: 0.5rem; right: 0.5rem; bottom: 0.5rem; border-radius: 14px; }
+  .gs-photo { top: 0.5rem; left: 0.5rem; right: 0.5rem; bottom: calc(42vh + 1.4rem); border-radius: 14px; }
+  .gs-overlay { top: 0.5rem; left: 0.5rem; right: 0.5rem; bottom: calc(42vh + 1.4rem); border-radius: 14px; }
   .gs-caption { top: 0.5rem; left: 0.5rem; right: 0.5rem; padding: 1.4rem 1.2rem 1.5rem 1.4rem; }
   .gs-story-panel { bottom: 0.5rem; left: 0.5rem; right: 0.5rem; max-height: 42vh; padding: 1rem 1.4rem 1.4rem; border-radius: 10px; }
   .gs-title { font-size: clamp(1.3rem, 6vw, 2.2rem); }
@@ -802,7 +802,7 @@ body {
     display: flex;
     opacity: 0.8;
     top: auto;
-    bottom: calc(42vh + 1.4rem);
+    bottom: calc(42vh + 1.8rem);
     transform: none;
     width: 44px;
     height: 44px;
@@ -861,20 +861,20 @@ body {
 /* Portrait on mobile: use same framed-card layout as landscape */
 @media (max-width: 768px) {
   .gs-slide--portrait .gs-photo {
-    left: 0.9rem;
-    right: 0.9rem;
-    top: 0.9rem;
-    bottom: 0.9rem;
-    border-radius: 20px;
+    left: 0.5rem;
+    right: 0.5rem;
+    top: 0.5rem;
+    bottom: calc(42vh + 1.4rem);
+    border-radius: 14px;
     background-size: contain;
     background-position: center;
   }
   .gs-slide--portrait .gs-overlay {
-    left: 0.9rem;
-    right: 0.9rem;
-    top: 0.9rem;
-    bottom: 0.9rem;
-    border-radius: 20px;
+    left: 0.5rem;
+    right: 0.5rem;
+    top: 0.5rem;
+    bottom: calc(42vh + 1.4rem);
+    border-radius: 14px;
     background:
       radial-gradient(ellipse at center, transparent 36%, rgba(0,0,0,0.62) 100%),
       linear-gradient(to bottom, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.18) 24%,
