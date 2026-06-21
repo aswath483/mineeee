@@ -529,14 +529,14 @@ body {
 }
 
 /* Chapter illustrations — full contain, no cropping */
-.gs-p0 { background: #050508 url("../photos/IMG_4684.png") center/contain no-repeat; }
-.gs-p1 { background: #050508 url("../photos/IMG_4685.png") center/contain no-repeat; }
-.gs-p2 { background: #050508 url("../photos/IMG_4687.png") center/contain no-repeat; }
-.gs-p3 { background: #050508 url("../photos/IMG_4688.png") center/contain no-repeat; }
-.gs-p4 { background: #050508 url("../photos/IMG_4690.png") center/contain no-repeat; }
-.gs-p5 { background: #050508 url("../photos/IMG_4692.png") center/contain no-repeat; }
-.gs-p6 { background: #050508 url("../photos/IMG_4695.png") center/contain no-repeat; }
-.gs-p7 { background: #050508 url("../photos/IMG_4696.png") center/contain no-repeat; }
+.gs-p0 { background: #050508 url("../photos/IMG_4684.webp") center/contain no-repeat; }
+.gs-p1 { background: #050508 url("../photos/IMG_4685.webp") center/contain no-repeat; }
+.gs-p2 { background: #050508 url("../photos/IMG_4687.webp") center/contain no-repeat; }
+.gs-p3 { background: #050508 url("../photos/IMG_4688.webp") center/contain no-repeat; }
+.gs-p4 { background: #050508 url("../photos/IMG_4690.webp") center/contain no-repeat; }
+.gs-p5 { background: #050508 url("../photos/IMG_4692.webp") center/contain no-repeat; }
+.gs-p6 { background: #050508 url("../photos/IMG_4695.webp") center/contain no-repeat; }
+.gs-p7 { background: #050508 url("../photos/IMG_4696.webp") center/contain no-repeat; }
 
 .gs-p0::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 45% 55%, rgba(212,99,122,0.18),transparent 60%); }
 .gs-p1::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 58% 42%, rgba(100,130,220,0.16), transparent 60%); }
@@ -547,8 +547,8 @@ body {
 .gs-p6::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 40% 52%, rgba(160,90,220,0.16), transparent 60%); }
 .gs-p7::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 50%, rgba(201,169,110,0.2),transparent 60%); }
 
-.gs-p8 { background: #050508 url("../photos/IMG_4686.png") center/contain no-repeat; }
-.gs-p9 { background: #050508 url("../photos/IMG_4694.png") center/contain no-repeat; }
+.gs-p8 { background: #050508 url("../photos/IMG_4686.webp") center/contain no-repeat; }
+.gs-p9 { background: #050508 url("../photos/IMG_4694.webp") center/contain no-repeat; }
 .gs-p8::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 48% 52%, rgba(180,100,210,0.16), transparent 60%); }
 .gs-p9::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 52% 48%, rgba(100,180,150,0.14), transparent 60%); }
 
