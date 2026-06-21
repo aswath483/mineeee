@@ -790,15 +790,26 @@ body {
   .gs-photo { top: 0.5rem; left: 0.5rem; right: 0.5rem; bottom: 0.5rem; border-radius: 14px; }
   .gs-overlay { top: 0.5rem; left: 0.5rem; right: 0.5rem; bottom: 0.5rem; border-radius: 14px; }
   .gs-caption { top: 0.5rem; left: 0.5rem; right: 0.5rem; padding: 1.4rem 1.2rem 1.5rem 1.4rem; }
-  .gs-story-panel { bottom: 0.5rem; left: 0.5rem; right: 0.5rem; max-height: 32vh; padding: 1rem 1.4rem 1.2rem; border-radius: 10px; }
+  .gs-story-panel { bottom: 0.5rem; left: 0.5rem; right: 0.5rem; max-height: 42vh; padding: 1rem 1.4rem 1.4rem; border-radius: 10px; }
   .gs-title { font-size: clamp(1.3rem, 6vw, 2.2rem); }
 }
 
 @media (max-width: 600px) {
-  .gs-btn { display: none; }
   .gs-title { font-size: clamp(1.5rem, 7vw, 2.6rem); }
-  #gallery .gs-btn { opacity: 0.6; display: flex; }
   .gs-story-body { font-size: 0.92rem; line-height: 1.85; }
+  /* buttons anchored just above the story panel, easy thumb reach */
+  .gs-btn {
+    display: flex;
+    opacity: 0.8;
+    top: auto;
+    bottom: calc(42vh + 1.4rem);
+    transform: none;
+    width: 44px;
+    height: 44px;
+  }
+  .gs-btn:hover { transform: scale(1.1); }
+  .gs-btn-prev { left: 1rem; }
+  .gs-btn-next { right: 1rem; }
 }
 
 /* ── Portrait adaptive layout — photo right frame, caption + story left ── */
