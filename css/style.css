@@ -658,11 +658,7 @@ body {
   line-height: 1.1;
   color: #fff;
   margin: 0 0 1.2rem;
-  text-shadow:
-    0 2px 4px rgba(0,0,0,1),
-    0 4px 20px rgba(0,0,0,1),
-    0 8px 48px rgba(0,0,0,0.95),
-    0 0 80px rgba(0,0,0,0.8);
+  text-shadow: none;
 }
 .gs-line-wrap {
   display: block;
