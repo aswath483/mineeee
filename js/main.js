@@ -599,7 +599,7 @@
   document.getElementById('np-enter').addEventListener('click', () => {
     overlay.classList.add('hide');
     setTimeout(() => overlay.remove(), 1100);
-    setTimeout(startYT, 5000); // delay 5s; user gesture already satisfies autoplay policy
+    startYT(); // must be in click handler — playVideo() requires user gesture
   });
 
   document.getElementById('dev-skip').addEventListener('click', () => {
@@ -1278,28 +1278,31 @@ window.onYouTubeIframeAPIReady = function () {
       onReady() {
         ytReady = true;
         ytPlayer.setVolume(0);
-        if (ytPending) { fadeInYT(); ytPending = false; }
+        if (ytPending) { ytPlayer.seekTo(27,true); ytPlayer.playVideo(); setTimeout(fadeInYT,5000); ytPending = false; }
       },
     },
   });
 };
 
 function fadeInYT() {
-  ytPlayer.seekTo(27, true);
-  ytPlayer.setVolume(0);
-  ytPlayer.playVideo();
-  updateMusicIcon(true);
+  // volume ramp — player is already playing silently
   let vol = 0;
   const fade = setInterval(() => {
     vol = Math.min(vol + 2, 35);
     ytPlayer.setVolume(vol);
     if (vol >= 35) clearInterval(fade);
-  }, 80); // ~1.9 s fade-in
+  }, 80);
 }
 
 function startYT() {
-  if (ytReady) fadeInYT();
-  else ytPending = true;
+  if (ytReady) {
+    ytPlayer.seekTo(27, true);
+    ytPlayer.setVolume(0);
+    ytPlayer.playVideo(); // silent start — satisfies autoplay policy immediately
+    setTimeout(fadeInYT, 5000); // audible after 5 s
+  } else {
+    ytPending = true;
+  }
 }
 
 function updateMusicIcon(on) {
