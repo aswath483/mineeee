@@ -547,6 +547,11 @@ body {
 .gs-p6::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 40% 52%, rgba(160,90,220,0.2), transparent 60%); }
 .gs-p7::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 50%, rgba(201,169,110,0.24),transparent 60%); }
 
+.gs-p8 { background: radial-gradient(ellipse at 48% 52%, #1a0e2e 0%, #050508 75%); }
+.gs-p9 { background: radial-gradient(ellipse at 52% 48%, #0a1e1a 0%, #050508 75%); }
+.gs-p8::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 48% 52%, rgba(180,100,210,0.2), transparent 60%); }
+.gs-p9::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 52% 48%, rgba(100,180,150,0.18), transparent 60%); }
+
 /* ── Reading overlay ── */
 .gs-overlay {
   position: absolute;
