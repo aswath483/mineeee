@@ -2025,3 +2025,20 @@ body {
   .cds-timer { gap: 0; }
   .cds-unit  { min-width: clamp(46px, 22vw, 64px); }
 }
+
+/* ── COUNTDOWN SKIP BUTTON ── */
+#cds-skip {
+  display: block;
+  margin: 1.5rem auto 0;
+  background: none;
+  border: 1px solid rgba(201,169,110,0.25);
+  color: rgba(245,240,232,0.35);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  transition: border-color 0.3s, color 0.3s;
+}
+#cds-skip:hover { border-color: rgba(201,169,110,0.6); color: #c9a96e; }
