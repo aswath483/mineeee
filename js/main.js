@@ -1188,11 +1188,49 @@ document.querySelectorAll('.message-content')
     tick();
   }
 
+  // ── Chapter lock: chapters 2-10 unlock July 14 ──
+  var CH_UNLOCK = new Date('2025-07-14T00:00:00');
+  var chLock    = document.getElementById('ch-lock');
+  var chLockTimer;
+
+  function chaptersUnlocked() { return new Date() >= CH_UNLOCK; }
+
+  function showChLock() {
+    chLock.classList.add('active');
+    tickChLock();
+  }
+  function hideChLock() {
+    chLock.classList.remove('active');
+    clearTimeout(chLockTimer);
+  }
+  document.getElementById('chl-back').addEventListener('click', hideChLock);
+
+  function padTwo(n) { return String(n).padStart(2,'0'); }
+  function tickChLock() {
+    if (!chLock.classList.contains('active')) return;
+    var diff = Math.max(0, CH_UNLOCK - new Date());
+    var d = Math.floor(diff/86400000);
+    var h = Math.floor((diff\%86400000)/3600000);
+    var m = Math.floor((diff\%3600000)/60000);
+    var s = Math.floor((diff\%60000)/1000);
+    document.getElementById('chl-d').textContent = padTwo(d);
+    document.getElementById('chl-h').textContent = padTwo(h);
+    document.getElementById('chl-m').textContent = padTwo(m);
+    document.getElementById('chl-s').textContent = padTwo(s);
+    if (diff > 0) chLockTimer = setTimeout(tickChLock, 1000);
+  }
+
   function next() {
     if (current === total - 1) { revealMessage(); return; }
-    goTo(current + 1);
+    var target = current + 1;
+    if (target >= 1 && !chaptersUnlocked()) { showChLock(); return; }
+    goTo(target);
   }
-  function prev() { goTo((current - 1 + total) % total); }
+  function prev() {
+    var target = (current - 1 + total) \% total;
+    if (target >= 1 && !chaptersUnlocked()) { showChLock(); return; }
+    goTo(target);
+  }
 
   document.getElementById('gs-next').addEventListener('click', next);
   document.getElementById('gs-prev').addEventListener('click', prev);
