@@ -36,7 +36,7 @@
 
   <script>
   (function () {
-    var ALWAYS_VISIBLE = true; // chapter 1 always visible; chapters 2-10 locked via chapter overlay
+    var ALWAYS_VISIBLE = false; // set true to bypass countdown during testing
     var UNLOCK = new Date(2026, 6, 14, 0, 0, 0); // July 14 2026 midnight, local time
     var screen = document.getElementById('cdscreen');
 
@@ -190,26 +190,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ── CHAPTER LOCK OVERLAY (chapters 2-10 unlock July 14) ── -->
-  <div id="ch-lock">
-    <div class="chl-inner">
-      <div class="chl-lock">🔒</div>
-      <p class="chl-pre">the rest of our story unlocks on</p>
-      <h2 class="chl-date">July 14 ♥</h2>
-      <p class="chl-hint">come back on your birthday</p>
-      <div class="chl-timer">
-        <div class="chl-unit"><span id="chl-d">00</span><small>days</small></div>
-        <div class="chl-sep">:</div>
-        <div class="chl-unit"><span id="chl-h">00</span><small>hrs</small></div>
-        <div class="chl-sep">:</div>
-        <div class="chl-unit"><span id="chl-m">00</span><small>min</small></div>
-        <div class="chl-sep">:</div>
-        <div class="chl-unit"><span id="chl-s">00</span><small>sec</small></div>
-      </div>
-      <button id="chl-back">← back to chapter 1</button>
-    </div>
-  </div>
 
   <!-- ── CINEMATIC SLIDESHOW ── -->
   <section id="gallery">
