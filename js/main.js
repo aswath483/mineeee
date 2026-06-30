@@ -1189,7 +1189,7 @@ document.querySelectorAll('.message-content')
   }
 
   function next() {
-    if (current === total - 1) { revealMessage(); return; }
+    if (current === total - 1) { if (window.startReel) { startReel(); } else { revealMessage(); } return; }
     goTo(current + 1);
   }
   function prev() { goTo((current - 1 + total) % total); }
@@ -1324,3 +1324,220 @@ if (audioBtn) {
     }
   });
 }
+
+/* ══════════════════════════════════════
+   CINEMATIC PHOTO REEL
+   — phone-first, touch optimised —
+══════════════════════════════════════ */
+(function initReel() {
+  // ── Config ──────────────────────────
+  var TOTAL       = 35;          // change to however many photos you add
+  var HOLD_MS     = 3800;        // how long each photo shows (ms)
+  var TRANSITION  = 'mix';       // 'mix' | 'dissolve' | 'flash' | 'leak'
+  var FOLDER      = 'reel/';     // folder name
+  var EXT         = '.jpg';      // file extension
+  // ────────────────────────────────────
+
+  var reel      = document.getElementById('reel');
+  var bgA       = document.getElementById('reel-bg-a');
+  var bgB       = document.getElementById('reel-bg-b');
+  var flash     = document.getElementById('reel-flash');
+  var leak      = document.getElementById('reel-leak');
+  var counter   = document.getElementById('reel-counter');
+  var pfill     = document.getElementById('reel-pfill');
+  var currEl    = document.getElementById('reel-curr');
+  var totalEl   = document.getElementById('reel-total');
+  var hintEl    = document.getElementById('reel-pause-hint');
+  var endBtn    = document.getElementById('reel-end-btn');
+  var titleCard = document.getElementById('reel-title-card');
+
+  var idx       = 0;
+  var active    = bgA;   // which bg is on top
+  var inactive  = bgB;
+  var timer     = null;
+  var paused    = false;
+  var holdStart = 0;
+  var types     = ['dissolve','flash','leak','kenburns'];
+  var tIdx      = 0;
+  var running   = false;
+
+  totalEl.textContent = pad(TOTAL);
+
+  function pad(n) { return String(n).padStart(2,'0'); }
+  function imgUrl(i) { return FOLDER + 'r' + (i+1) + EXT; }
+
+  // Preload next photo quietly
+  function preload(i) {
+    if (i >= TOTAL) return;
+    var img = new Image();
+    img.src = imgUrl(i);
+  }
+
+  function updateUI() {
+    currEl.textContent = pad(idx + 1);
+    pfill.style.width  = ((idx + 1) / TOTAL * 100) + '%';
+  }
+
+  // Ken Burns: slow zoom + subtle pan on active layer
+  function kenBurns(el) {
+    var dirs = [
+      { x:  4, y:  2 },
+      { x: -3, y:  3 },
+      { x:  2, y: -3 },
+      { x: -4, y: -2 },
+    ];
+    var d = dirs[idx % dirs.length];
+    gsap.fromTo(el,
+      { scale: 1.08, x: 0, y: 0 },
+      { scale: 1.18, x: d.x + '%', y: d.y + '%',
+        duration: HOLD_MS / 1000 + 1,
+        ease: 'none' }
+    );
+  }
+
+  function showPhoto(i, firstTime) {
+    var url = 'url("' + imgUrl(i) + '")';
+    inactive.style.backgroundImage = url;
+    inactive.style.backgroundPosition = 'center';
+    inactive.style.backgroundSize = 'cover';
+
+    var type = firstTime ? 'dissolve' : types[tIdx++ % types.length];
+
+    gsap.killTweensOf([active, inactive, flash, leak]);
+
+    if (type === 'flash') {
+      // hard cut with white flash
+      gsap.set(inactive, { opacity: 1, scale: 1, x: 0, y: 0, zIndex: 2 });
+      gsap.set(active,   { zIndex: 1 });
+      gsap.fromTo(flash, { opacity: 0.9 }, { opacity: 0, duration: 0.35, ease: 'power2.out' });
+    } else if (type === 'leak') {
+      // light leak wipe
+      gsap.set(inactive, { opacity: 0, scale: 1, x: 0, y: 0, zIndex: 2 });
+      gsap.set(active,   { zIndex: 1 });
+      gsap.to(leak,     { opacity: 1, duration: 0.25, ease: 'power2.in',
+        onComplete: function() {
+          gsap.set(inactive, { opacity: 1 });
+          gsap.to(leak, { opacity: 0, duration: 0.4, ease: 'power2.out' });
+        }
+      });
+    } else if (type === 'kenburns') {
+      // dissolve + ken burns on incoming
+      gsap.set(inactive, { opacity: 0, scale: 1.08, x: 0, y: 0, zIndex: 2 });
+      gsap.set(active,   { zIndex: 1 });
+      gsap.to(inactive,  { opacity: 1, duration: 0.9, ease: 'power1.inOut' });
+      kenBurns(inactive);
+    } else {
+      // simple dissolve
+      gsap.set(inactive, { opacity: 0, scale: 1, x: 0, y: 0, zIndex: 2 });
+      gsap.set(active,   { zIndex: 1 });
+      gsap.to(inactive,  { opacity: 1, duration: 0.8, ease: 'power1.inOut' });
+    }
+
+    // swap roles
+    var tmp = active; active = inactive; inactive = tmp;
+
+    updateUI();
+    preload(i + 2);
+
+    // Ken Burns on every photo (subtle)
+    if (type !== 'kenburns') kenBurns(active);
+
+    scheduleNext();
+  }
+
+  function scheduleNext() {
+    clearTimeout(timer);
+    if (paused) return;
+    timer = setTimeout(function() {
+      if (idx + 1 >= TOTAL) {
+        endReel();
+      } else {
+        idx++;
+        showPhoto(idx, false);
+      }
+    }, HOLD_MS);
+  }
+
+  function endReel() {
+    running = false;
+    reel.classList.remove('active');
+    revealMessage();
+  }
+
+  // ── Touch: tap = next, hold = pause ──
+  var holdTimer = null;
+
+  reel.addEventListener('touchstart', function(e) {
+    holdStart = Date.now();
+    holdTimer = setTimeout(function() {
+      paused = true;
+      reel.classList.add('paused');
+      clearTimeout(timer);
+    }, 400);
+  }, { passive: true });
+
+  reel.addEventListener('touchend', function(e) {
+    clearTimeout(holdTimer);
+    var held = Date.now() - holdStart;
+    if (paused) {
+      paused = false;
+      reel.classList.remove('paused');
+      scheduleNext();
+      return;
+    }
+    if (held < 350) {
+      // tap — advance
+      clearTimeout(timer);
+      if (idx + 1 >= TOTAL) { endReel(); return; }
+      idx++;
+      showPhoto(idx, false);
+    }
+  }, { passive: true });
+
+  // Also works on desktop click
+  reel.addEventListener('click', function(e) {
+    if (e.target === endBtn) return;
+    if (paused) return;
+    clearTimeout(timer);
+    if (idx + 1 >= TOTAL) { endReel(); return; }
+    idx++;
+    showPhoto(idx, false);
+  });
+
+  endBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    endReel();
+  });
+
+  // ── Public: called when chapter 10 ends ──
+  window.startReel = function() {
+    if (running) return;
+    running = true;
+    idx     = 0;
+    paused  = false;
+    tIdx    = 0;
+    reel.classList.add('active');
+
+    // Show title card first, then start
+    titleCard.classList.remove('hidden');
+    counter.classList.remove('show');
+    hintEl.classList.remove('show');
+    endBtn.classList.remove('show');
+
+    // Preload first 3
+    preload(0); preload(1); preload(2);
+
+    reel.addEventListener('click', function startOnTap() {
+      reel.removeEventListener('click', startOnTap);
+      titleCard.classList.add('hidden');
+      counter.classList.add('show');
+      hintEl.classList.add('show');
+      endBtn.classList.add('show');
+      gsap.set(bgA, { opacity: 0, zIndex: 2, scale: 1, x: 0, y: 0 });
+      gsap.set(bgB, { opacity: 0, zIndex: 1, scale: 1, x: 0, y: 0 });
+      active   = bgA;
+      inactive = bgB;
+      showPhoto(0, true);
+    }, { once: true });
+  };
+})();
